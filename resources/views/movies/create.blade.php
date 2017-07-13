@@ -11,7 +11,8 @@
 
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
-            {!! Form::open(['class' => 'form-horizontal', '@submit.prevent' => 'createMovie', 'files' => true]) !!}
+            {!! Form::open(['class' => 'form-horizontal', '@submit.prevent' => 'createMovie', 'files' => true,
+            '@keydown' => 'errors.clear($event.target.name)']) !!}
                 @include('partials.movies.form')
             {!! Form::close() !!}
         </div>
