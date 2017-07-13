@@ -1,5 +1,8 @@
 @extends('layout.master')
 @section('page-title', 'Dashboard')
+@section('page-header')
+    @include('partials.layout.page-header', ['heading' => 'Dashboard', 'sub' => 'Control panel'])
+@endsection
 @section('content')
     <!-- Small boxes (Stat box) -->
     <div class="row">

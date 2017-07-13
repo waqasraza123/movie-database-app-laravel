@@ -17,12 +17,12 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        @include('partials.layout.page-header')
-
         <!-- Main content -->
+        @yield('page-header')
         <section class="content">
-            @yield('content')
+            <div class="container-fluid">
+                @yield('content')
+            </div>
         </section>
         <!-- /.content -->
     </div>
@@ -44,6 +44,5 @@
 </div>
 <!-- ./wrapper -->
 @include('partials.layout.footer-scripts')
-@yield('footer')
 </body>
 </html>

@@ -15,8 +15,6 @@
 <link rel="stylesheet" href="{{asset('/lte/plugins/morris/morris.css')}}">
 <!-- jvectormap -->
 <link rel="stylesheet" href="{{asset('/lte/plugins/jvectormap/jquery-jvectormap-1.2.2.css')}}">
-<!-- Date Picker -->
-<link rel="stylesheet" href="{{asset('/lte/plugins/datepicker/datepicker3.css')}}">
 <!-- Daterange picker -->
 <link rel="stylesheet" href="{{asset('/lte/plugins/daterangepicker/daterangepicker.css')}}">
 <!-- bootstrap wysihtml5 - text editor -->

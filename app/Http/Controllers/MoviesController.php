@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Movie;
 use Illuminate\Http\Request;
 
 class MoviesController extends Controller
@@ -23,7 +24,7 @@ class MoviesController extends Controller
      */
     public function create()
     {
-        //
+        return view('movies.create');
     }
 
     /**
@@ -56,7 +57,8 @@ class MoviesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $movie = Movie::find($id);
+        return view('movies.edit', compact('movie'));
     }
 
     /**
