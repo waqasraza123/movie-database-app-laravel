@@ -12,13 +12,5 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/test', function(){
-    /*\App\User::create([
-        'name' => 'waqas',
-        'email' => 'waqas@gmail.com',
-        'password' => bcrypt('123456')
-    ]);*/
-    \App\User::find(1)->delete();
+    return view('dashboard.dashboard');
 });
