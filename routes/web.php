@@ -14,3 +14,4 @@
 Route::get('/', function () {
     return view('dashboard.dashboard');
 });
+Route::resource('movies', 'MoviesController');
