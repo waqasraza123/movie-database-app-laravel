@@ -27,8 +27,8 @@
             <label for="title" class="col-sm-2 control-label">Title</label>
 
             <div class="col-sm-10">
-                {!! Form::text('title', 'movie title', ['class' => 'form-control', 'id' => 'title',
-                'v-model' => 'form.title']) !!}
+                {!! Form::text('title', null, ['class' => 'form-control', 'id' => 'title',
+                'v-model' => 'form.title', 'placeholder' => 'movie title']) !!}
                 {{--display errors if field has errors using FormError component--}}
                 <span class="text text-red" v-text="form.errors.get('title')"></span>
             </div>
