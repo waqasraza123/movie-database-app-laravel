@@ -11,8 +11,8 @@
 
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
-            {!! Form::open(['class' => 'form-horizontal', '@submit.prevent' => 'createMovie', 'files' => true,
-            '@keydown' => 'errors.clear($event.target.name)']) !!}
+            {!! Form::open(['class' => 'form-horizontal', '@submit.prevent' => 'form.createMovie', 'files' => true,
+            '@keydown' => 'form.errors.clear($event.target.name)', 'id' => 'create-movie-form']) !!}
                 @include('partials.movies.form')
             {!! Form::close() !!}
         </div>
@@ -20,7 +20,8 @@
 
 @endsection
 @section('footer')
-    <script src="{{asset('/lte/plugins/daterangepicker/daterangepicker.js')}}"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script src="{{asset('/lte/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('/lte/plugins/iCheck/icheck.min.js')}}"></script>
 @endsection

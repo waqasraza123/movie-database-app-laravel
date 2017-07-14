@@ -14,7 +14,8 @@ class Movie extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = array('aka_title', 'plot', 'synopsis', 'background_path', 'age_rating', 'stream_url', 'buy_url');
+    protected $fillable = array('title', 'aka_title', 'plot', 'synopsis', 'background_path',
+        'age_rating', 'stream_url', 'buy_url', 'release_date', 'views', 'poster_path', 'homepage', 'featured');
 
     public function people()
     {
@@ -38,7 +39,7 @@ class Movie extends Model
 
     public function languages()
     {
-        return $this->hasMany('Language', 'languages_movies');
+        return $this->belongsToMany(Language::class, 'languages_movies', 'movie_id', 'language_id');
     }
 
 }

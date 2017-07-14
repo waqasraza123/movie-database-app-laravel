@@ -11,9 +11,9 @@
             <label for="poster" class="col-sm-2 control-label">Poster</label>
 
             <div class="col-sm-10">
-                <input type="file" name="poster" class="form-control" id="poster">
+                <input type="file" name="poster" class="form-control" id="poster" @change="onFileChange">
                 {{--display errors if field has errors using FormError component--}}
-                <span class="text text-red" v-text="errors.get('poster')"></span>
+                <span class="text text-red poster" v-if="form.errors.get('poster')" v-text="form.errors.get('poster')"></span>
             </div>
         </div>
         <div class="form-group">
@@ -27,9 +27,9 @@
             <label for="title" class="col-sm-2 control-label">Title</label>
 
             <div class="col-sm-10">
-                <input type="text" name="title" class="form-control" id="title" v-model="movie.title" placeholder="movie title">
+                <input type="text" name="title" class="form-control" id="title" v-model="form.title" placeholder="movie title">
                 {{--display errors if field has errors using FormError component--}}
-                <span class="text text-red" v-text="errors.get('title')"></span>
+                <span class="text text-red" v-text="form.errors.get('title')"></span>
             </div>
         </div>
         <div class="form-group">
@@ -64,9 +64,10 @@
             <label for="language" class="col-sm-2 control-label">Language</label>
 
             <div class="col-sm-10">
-                <input type="text" name="language" class="form-control" v-model="movie.language" id="language" placeholder="english">
+                {!! Form::select('language[]', $languages, null, ['placeholder' => 'Select a Language',
+                'id' => 'language', 'v-model' => 'form.language', 'multiple' => true]) !!}
                 {{--display errors if field has errors using FormError component--}}
-                <span class="text text-red" v-text="errors.get('language')"></span>
+                <span class="text text-red language" v-text="form.errors.get('language')"></span>
             </div>
         </div>
         <div class="form-group">
@@ -121,7 +122,7 @@
     </div>
     <!-- /.box-body -->
     <div class="box-footer">
-        <button type="submit" :disabled="errors.any()" class="btn btn-success pull-right">Create</button>
+        <button type="submit" class="btn btn-success pull-right">Create</button>
     </div>
     <!-- /.box-footer -->
 </div>

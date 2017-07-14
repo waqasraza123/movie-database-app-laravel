@@ -26,3 +26,10 @@ Route::resource('keywordmovie', 'KeywordMovieController');
 Route::resource('studio', 'StudioController');
 Route::resource('language', 'LanguageController');
 Route::resource('languagemovie', 'LanguageMovieController');
+/*Route::get('/test', function(){
+    \App\Language::insert([
+        ['language' => 'English'],
+        ['language' => 'French'],
+        ['language' => 'Creole']
+    ]);
+});*/

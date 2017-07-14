@@ -769,9 +769,8 @@ module.exports = g;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Form__ = __webpack_require__(52);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -780,109 +779,45 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  */
 
 __webpack_require__(29);
-
 window.Vue = __webpack_require__(37);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
-var Errors = function () {
-
-    /**
-     * Create a new Errors instance.
-     */
-    function Errors() {
-        _classCallCheck(this, Errors);
-
-        this.errors = {};
-    }
-
-    /**
-     * Retrieve the error message for a field.
-     *
-     * @param {string} field
-     */
-
-
-    _createClass(Errors, [{
-        key: 'get',
-        value: function get(field) {
-            if (this.errors[field]) {
-                return this.errors[field][0];
-            }
-        }
-        /**
-         * Record the new errors.
-         *
-         * @param {object} errors
-         */
-
-    }, {
-        key: 'record',
-        value: function record(errors) {
-            this.errors = errors;
-        }
-
-        /**
-         * Clear one or all error fields.
-         *
-         * @param {string|null} field
-         */
-
-    }, {
-        key: 'clear',
-        value: function clear(field) {
-            if (field) {
-                delete this.errors[field];
-
-                return;
-            }
-
-            this.errors = {};
-        }
-
-        /**
-         * Determine if we have any errors.
-         */
-
-    }, {
-        key: 'any',
-        value: function any() {
-            return Object.keys(this.errors).length > 0;
-        }
-    }]);
-
-    return Errors;
-}();
-
-new Vue({
+var vm = new Vue({
     el: '#app',
 
-    components: {},
-
     data: {
-        movie: {
+        form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* Form */]({
             title: '',
-            language: '',
+            language: [],
             poster: ''
-        },
-
-        errors: new Errors()
+        })
     },
-
     methods: {
-        createMovie: function createMovie() {
-            var _this = this;
 
-            axios.post('/movies', this.$data).then(function (response) {
-                return alert('success');
-            }).catch(function (error) {
-                return _this.errors.record(error.response.data);
-            });
+        /**
+         * detect file change
+         * @param e
+         */
+        onFileChange: function onFileChange(e) {
+            if (!e.length) {
+                $(".text-red.poster").hide();
+                this.form.errors.clear('poster');
+            }
         }
     }
+});
+
+/**
+ * custom work
+ */
+
+$("#language").on("select2:select", function (e) {
+    var length = $("#language :selected").length;
+    vm.form.changeLanguage(length);
 });
 
 /***/ }),
@@ -41828,6 +41763,171 @@ module.exports = function(module) {
 __webpack_require__(8);
 module.exports = __webpack_require__(9);
 
+
+/***/ }),
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Errors; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Errors = function () {
+
+    /**
+     * Create a new Errors instance.
+     */
+    function Errors() {
+        _classCallCheck(this, Errors);
+
+        this.errors = {};
+    }
+
+    /**
+     * Retrieve the error message for a field.
+     *
+     * @param {string} field
+     */
+
+
+    _createClass(Errors, [{
+        key: "get",
+        value: function get(field) {
+            if (field in this.errors) {
+                return this.errors[field][0];
+            }
+        }
+        /**
+         * Record the new errors.
+         *
+         * @param {object} errors
+         */
+
+    }, {
+        key: "record",
+        value: function record(errors) {
+            this.errors = errors;
+        }
+
+        /**
+         * Clear one or all error fields.
+         *
+         * @param {string|null} field
+         */
+
+    }, {
+        key: "clear",
+        value: function clear(field) {
+            if (field) {
+                delete this.errors[field];
+                return;
+            }
+            this.errors = {};
+        }
+
+        /**
+         * Determine if we have any errors.
+         */
+
+    }, {
+        key: "any",
+        value: function any() {
+            return Object.keys(this.errors).length > 0;
+        }
+    }]);
+
+    return Errors;
+}();
+
+/***/ }),
+/* 52 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Errors__ = __webpack_require__(51);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Form; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+var Form = function () {
+    function Form() {
+        _classCallCheck(this, Form);
+
+        this.title = '';
+        this.poster = '';
+        this.language = [];
+        this.errors = new __WEBPACK_IMPORTED_MODULE_0__Errors__["a" /* Errors */]();
+    }
+
+    _createClass(Form, [{
+        key: 'createMovie',
+        value: function createMovie() {
+            var _this = this;
+
+            var formData = new FormData(document.querySelector('#create-movie-form'));
+            axios.post('/movies', formData).then(function (response) {
+                swal("Good job!", "Movie has been Saved!", "success");
+                _this.resetForm();
+            }).catch(function (error) {
+                _this.errors.record(error.response.data);
+            });
+        }
+    }, {
+        key: 'removeImage',
+
+
+        /**
+         * remove image
+         * @param e
+         */
+        value: function removeImage(e) {
+            this.poster = '';
+        }
+
+        /**
+         * detect language change
+         * @param e
+         */
+
+    }, {
+        key: 'changeLanguage',
+        value: function changeLanguage(n) {
+            if (n > 0) {
+                $(".text-red.language").hide();
+                this.errors.clear('language');
+            }
+        }
+
+        /**
+         * clear form fields
+         */
+
+    }, {
+        key: 'resetForm',
+        value: function resetForm() {
+            $('#create-movie-form')[0].reset();
+            location.reload(true);
+        }
+    }]);
+
+    return Form;
+}();
 
 /***/ })
 /******/ ]);
