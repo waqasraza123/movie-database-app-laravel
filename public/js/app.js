@@ -41875,6 +41875,11 @@ var Form = function () {
         this.errors = new __WEBPACK_IMPORTED_MODULE_0__Errors__["a" /* Errors */]();
     }
 
+    /**
+     * create movie resource
+     */
+
+
     _createClass(Form, [{
         key: 'createMovie',
         value: function createMovie() {
@@ -41891,6 +41896,23 @@ var Form = function () {
     }, {
         key: 'removeImage',
 
+
+        /**
+         * update movie resource
+         * specified by id
+         */
+        /*updateMovie() {
+            var formData = new FormData($("#update-movie-form"))
+            var data = $("#update-movie-form").serialize()
+            var movieId = $('#movie-id').val()
+            axios.patch('/movies/' + movieId, {formData, data})
+                .then(response => {
+                    swal("Good job!", "Movie has been Updated!", "success");
+                })
+                .catch(error => {
+                    this.errors.record(error.response.data);
+                });
+        };*/
 
         /**
          * remove image
@@ -41921,6 +41943,7 @@ var Form = function () {
     }, {
         key: 'resetForm',
         value: function resetForm() {
+            //$('#language').select2('val', '');
             $('#create-movie-form')[0].reset();
             location.reload(true);
         }

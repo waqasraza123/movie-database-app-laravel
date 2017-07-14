@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateMovieFormRequest;
+use App\Http\Requests\UpdateMovieFormRequest;
 use App\Language;
 use App\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 
 class MoviesController extends Controller
 {
@@ -89,7 +91,9 @@ class MoviesController extends Controller
     public function edit($id)
     {
         $movie = Movie::find($id);
-        return view('movies.edit', compact('movie'));
+        $languages = Language::pluck('language', 'id');
+        $langSelect = $movie->languages()->pluck('languages.id', 'language')->toArray();
+        return view('movies.edit', compact('movie', 'languages', 'langSelect'));
     }
 
     /**
@@ -99,9 +103,36 @@ class MoviesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateMovieFormRequest $request, $id)
     {
-        //
+        $data = $request->all();
+        $this->saveImage($data);
+        Movie::where('id', $id)->update([
+            'title' => $data['title'],
+            'aka_title' => $data['aka_title'],
+            'plot' => $data['plot'],
+            'synopsis' => $data['synopsis'],
+            'release_date' => $data['release_date'],
+            'runtime' => $data['runtime'],
+            'age_rating' => $data['age_rating'],
+            'views' => $data['views'],
+            'homepage' => $data['homepage'],
+            'featured' => $data['featured'] == 'featured' ? 1 : 0,
+            'stream_url' => $data['stream_url'],
+            'buy_url' => $data['buy_url'],
+            'poster_path' => asset($this->posterPath) . '/' . $this->posterFileName,
+            'background_path' => asset($this->backgroundPath) . '/' . $this->backgroundFileName,
+        ]);
+        $movie = Movie::find($id);
+        if($movie){
+            $movie->languages()->sync($data['language']);
+        }
+
+        return redirect()->back()->with([
+            'success' => 'Movie Updated Successfully',
+            'swal' => true,
+        ]);
+
     }
 
     /**

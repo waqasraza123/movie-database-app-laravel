@@ -28,12 +28,13 @@
 <script src="{{asset('/lte/plugins/fastclick/fastclick.js')}}"></script>
 <!-- AdminLTE App -->
 {{--<script src="{{asset('/lte/dist/js/app.min.js')}}"></script>--}}
-{{--<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{asset('/lte/dist/js/pages/dashboard.js')}}"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+{{--<script src="{{asset('/lte/dist/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('/lte/dist/js/demo.js')}}"></script>--}}
 <script src="{{asset('swal/sweetalert.min.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="{{asset('swal/sweetalert.css')}}">
+{{--<script src="{{asset('validation/jquery.validate.min.js')}}"></script>--}}
 <script src="{{asset('/js/app.js')}}"></script>
 @yield('footer')
 <script src="{{asset('/js/custom.js')}}"></script>

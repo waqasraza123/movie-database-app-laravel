@@ -15,7 +15,7 @@ class Movie extends Model
 
     protected $dates = ['deleted_at'];
     protected $fillable = array('title', 'aka_title', 'plot', 'synopsis', 'background_path',
-        'age_rating', 'stream_url', 'buy_url', 'release_date', 'views', 'poster_path', 'homepage', 'featured');
+        'age_rating', 'stream_url', 'buy_url', 'release_date', 'views', 'poster_path', 'homepage', 'featured', 'runtime');
 
     public function people()
     {

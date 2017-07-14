@@ -6,6 +6,7 @@ $(function(){
     var releaseDate = $("#release-date")
     var runtime = $("#runtime")
     var language = $("#language")
+    var updatingMovieForm = $("#update-movie-form")
 
     /**
      * custom work
@@ -31,8 +32,24 @@ $(function(){
     $("#language").change(function(){
         if($("#language").length){
             $(".text-read.language").hide()
+
             //this.errors.clear('language')
         }
     })
+    language.on("select2:close", function (e) {
+        $(this).valid();
+    });
+    if(updatingMovieForm.length){
+        updatingMovieForm.validate({
+            ignore: 'input[type=hidden]',
+        })
+    }
+
+    /**
+     * hide alerts
+     */
+    setInterval(function hideAlert() {
+        if($('div.alert').length > 0){$('div.alert').slideUp('slow')}
+    }, 5000)
 
 })
