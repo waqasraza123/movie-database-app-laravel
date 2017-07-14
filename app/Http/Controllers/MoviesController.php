@@ -144,7 +144,11 @@ class MoviesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $movie = Movie::find($id);
+        $movie->languages()->sync([]);
+        $movie->delete();
+
+        return redirect()->back()->withSuccess('Movie has been deleted');
     }
 
 

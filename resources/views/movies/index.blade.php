@@ -5,6 +5,8 @@
 @endsection
 @section('content')
     <div class="col-sm-12">
+        @include('partials.errors.error')
+        @include('partials.errors.success')
         @include('partials.movies.index-data', ['movies' => $movies])
     </div>
 @endsection
