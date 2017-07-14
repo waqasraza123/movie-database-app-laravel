@@ -24,7 +24,8 @@ class MoviesController extends Controller
      */
     public function index()
     {
-        //
+        $movies = Movie::paginate(10);
+        return view('movies.index', compact('movies'));
     }
 
     /**
