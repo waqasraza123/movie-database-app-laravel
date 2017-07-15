@@ -72,6 +72,14 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="genre" class="col-sm-2 control-label">Genre</label>
+
+            <div class="col-sm-10">
+                {!! Form::select('genre[]', $genres, null, [
+                'id' => 'genre', 'multiple' => true, 'required' => false]) !!}
+            </div>
+        </div>
+        <div class="form-group">
             <label for="runtime" class="col-sm-2 control-label">Runtime</label>
 
             <div class="col-sm-10">

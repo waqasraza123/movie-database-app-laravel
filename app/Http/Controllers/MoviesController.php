@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Genre;
 use App\Http\Requests\CreateMovieFormRequest;
 use App\Http\Requests\UpdateMovieFormRequest;
 use App\Language;
@@ -36,7 +37,8 @@ class MoviesController extends Controller
     public function create()
     {
         $languages = Language::pluck('language', 'id');
-        return view('movies.create', compact('languages'));
+        $genres = Genre::pluck('genre', 'id');
+        return view('movies.create', compact('languages', 'genres'));
     }
 
     /**
@@ -68,6 +70,7 @@ class MoviesController extends Controller
 
         if($movie){
             $movie->languages()->sync($data['language']);
+            $movie->genres()->sync($data['genre']);
         }
 
     }
@@ -93,8 +96,11 @@ class MoviesController extends Controller
     {
         $movie = Movie::find($id);
         $languages = Language::pluck('language', 'id');
+        $genres = Genre::pluck('genre', 'id');
         $langSelect = $movie->languages()->pluck('languages.id', 'language')->toArray();
-        return view('movies.edit', compact('movie', 'languages', 'langSelect'));
+        $genreSelect = $movie->genres()->pluck('genres.id', 'genre')->toArray();
+        return view('movies.edit', compact('movie', 'languages', 'langSelect',
+            'genres', 'genreSelect'));
     }
 
     /**
@@ -107,6 +113,9 @@ class MoviesController extends Controller
     public function update(UpdateMovieFormRequest $request, $id)
     {
         $data = $request->all();
+        $m = Movie::find($id);
+        $posterImageDB = $m->poster_path;
+        $backgroundImageDB = $m->background_path;
         $this->saveImage($data);
         Movie::where('id', $id)->update([
             'title' => $data['title'],
@@ -121,12 +130,13 @@ class MoviesController extends Controller
             'featured' => $data['featured'] == 'featured' ? 1 : 0,
             'stream_url' => $data['stream_url'],
             'buy_url' => $data['buy_url'],
-            'poster_path' => asset($this->posterPath) . '/' . $this->posterFileName,
-            'background_path' => asset($this->backgroundPath) . '/' . $this->backgroundFileName,
+            'poster_path' => $this->posterFileName != null ? asset($this->posterPath) . '/' . $this->posterFileName : $posterImageDB,
+            'background_path' => $this->backgroundFileName != null ? asset($this->backgroundPath) . '/' . $this->backgroundFileName : $backgroundImageDB,
         ]);
         $movie = Movie::find($id);
         if($movie){
             $movie->languages()->sync($data['language']);
+            $movie->genres()->sync($data['genre']);
         }
 
         return redirect()->back()->with([
@@ -146,6 +156,7 @@ class MoviesController extends Controller
     {
         $movie = Movie::find($id);
         $movie->languages()->sync([]);
+        $movie->genres()->sync([]);
         $movie->delete();
 
         return redirect()->back()->withSuccess('Movie has been deleted');

@@ -6,6 +6,7 @@ $(function(){
     var releaseDate = $("#release-date")
     var runtime = $("#runtime")
     var language = $("#language")
+    var genre = $("#genre")
     var updatingMovieForm = $("#update-movie-form")
     var confirmDelete = $('.confirm-delete')
     var deleteMovieForm = $(".delete-movie-form")
@@ -20,6 +21,9 @@ $(function(){
     }
     if(language.length){
         language.select2()
+    }
+    if(genre.length){
+        genre.select2()
     }
     try {
         //iCheck for checkbox and radio inputs

@@ -25,7 +25,7 @@ class UpdateMovieFormRequest extends FormRequest
     {
         return [
             'title' => 'required | max:250',
-            'poster' => 'required | mimes:jpeg,jpg,png',
+            'poster' => 'nullable | mimes:jpeg,jpg,png',
             'background' => 'nullable | mimes:jpeg,jpg,png',
             'language' => 'required',
             'runtime' => 'nullable | integer',

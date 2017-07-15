@@ -8,11 +8,12 @@
     <input type="hidden" value="{{$movie->id}}" id="movie-id">
 
     <div class="box-body">
+        <img src="{{$movie->poster_path}}" width="100%" height="auto" style="margin-bottom: 30px"/>
         <div class="form-group">
             <label for="poster" class="col-sm-2 control-label">Poster</label>
 
             <div class="col-sm-10">
-                <input type="file" name="poster" class="form-control" id="poster" required>
+                <input type="file" name="poster" class="form-control" id="poster">
             </div>
         </div>
         <div class="form-group">
@@ -64,6 +65,14 @@
             <div class="col-sm-10">
                 {!! Form::select('language[]', $languages, $langSelect, [
                 'id' => 'language', 'multiple' => true, 'required' => true]) !!}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="genre" class="col-sm-2 control-label">Genre</label>
+
+            <div class="col-sm-10">
+                {!! Form::select('genre[]', $genres, $genreSelect, [
+                'id' => 'genre', 'multiple' => true, 'required' => false]) !!}
             </div>
         </div>
         <div class="form-group">
