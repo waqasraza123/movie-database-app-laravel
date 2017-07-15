@@ -26,10 +26,13 @@ Route::resource('keywordmovie', 'KeywordMovieController');
 Route::resource('studio', 'StudioController');
 Route::resource('language', 'LanguageController');
 Route::resource('languagemovie', 'LanguageMovieController');
-/*Route::get('/test', function(){
-    \App\Language::insert([
-        ['language' => 'English'],
-        ['language' => 'French'],
-        ['language' => 'Creole']
+Route::get('/test', function(){
+    \Illuminate\Support\Facades\DB::table('age_ratings')->insert([
+        ['age_rating' => 'G'],
+        ['age_rating' => 'PG'],
+        ['age_rating' => 'PG-13'],
+        ['age_rating' => 'R'],
+        ['age_rating' => 'NR'],
+        ['age_rating' => 'NC-17']
     ]);
-});*/
+});

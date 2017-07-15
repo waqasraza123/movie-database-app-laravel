@@ -37,4 +37,5 @@
 {{--<script src="{{asset('validation/jquery.validate.min.js')}}"></script>--}}
 <script src="{{asset('/js/app.js')}}"></script>
 @yield('footer')
+<link rel="stylesheet" type="text/css" href="{{asset('/css/app.css')}}">
 <script src="{{asset('/js/custom.js')}}"></script>

@@ -86,7 +86,8 @@
             <label for="age_rating" class="col-sm-2 control-label">Age Rating</label>
 
             <div class="col-sm-10">
-                {!! Form::number('age_rating', null, ['class' => 'form-control', 'id' => 'age-rating']) !!}
+                {!! Form::select('age_rating', $ageRatings, $ageRatingsSelect, ['class' => 'form-control', 'id' => 'age-rating',
+                'placeholder' => 'Select age Rating']) !!}
             </div>
         </div>
         <div class="form-group">

@@ -10,6 +10,7 @@ $(function(){
     var updatingMovieForm = $("#update-movie-form")
     var confirmDelete = $('.confirm-delete')
     var deleteMovieForm = $(".delete-movie-form")
+    var ageRating = $("#age-rating")
     /**
      * custom work
      */
@@ -24,6 +25,9 @@ $(function(){
     }
     if(genre.length){
         genre.select2()
+    }
+    if(ageRating.length){
+        ageRating.select2()
     }
     try {
         //iCheck for checkbox and radio inputs

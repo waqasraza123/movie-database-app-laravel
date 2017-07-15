@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\AgeRating;
 use App\Genre;
 use App\Http\Requests\CreateMovieFormRequest;
 use App\Http\Requests\UpdateMovieFormRequest;
 use App\Language;
 use App\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
 
 class MoviesController extends Controller
@@ -38,7 +40,8 @@ class MoviesController extends Controller
     {
         $languages = Language::pluck('language', 'id');
         $genres = Genre::pluck('genre', 'id');
-        return view('movies.create', compact('languages', 'genres'));
+        $ageRatings = AgeRating::pluck('age_rating', 'id');
+        return view('movies.create', compact('languages', 'genres', 'ageRatings'));
     }
 
     /**
@@ -64,6 +67,7 @@ class MoviesController extends Controller
             'featured' => $data['featured'] == 'featured' ? 1 : 0,
             'stream_url' => $data['stream_url'],
             'buy_url' => $data['buy_url'],
+            'age_rating' => $data['age_rating'],
             'poster_path' => asset($this->posterPath) . '/' . $this->posterFileName,
             'background_path' => asset($this->backgroundPath) . '/' . $this->backgroundFileName,
         ]);
@@ -72,7 +76,6 @@ class MoviesController extends Controller
             $movie->languages()->sync($data['language']);
             $movie->genres()->sync($data['genre']);
         }
-
     }
 
     /**
@@ -97,10 +100,15 @@ class MoviesController extends Controller
         $movie = Movie::find($id);
         $languages = Language::pluck('language', 'id');
         $genres = Genre::pluck('genre', 'id');
+        $ageRatings = AgeRating::pluck('age_rating', 'id');
         $langSelect = $movie->languages()->pluck('languages.id', 'language')->toArray();
         $genreSelect = $movie->genres()->pluck('genres.id', 'genre')->toArray();
+        $ageRatingsSelect = AgeRating::find($movie->age_rating);
+        if($ageRatingsSelect){
+            $ageRatingsSelect = $ageRatingsSelect->id;
+        }
         return view('movies.edit', compact('movie', 'languages', 'langSelect',
-            'genres', 'genreSelect'));
+            'genres', 'genreSelect', 'ageRatings', 'ageRatingsSelect'));
     }
 
     /**
@@ -130,6 +138,7 @@ class MoviesController extends Controller
             'featured' => $data['featured'] == 'featured' ? 1 : 0,
             'stream_url' => $data['stream_url'],
             'buy_url' => $data['buy_url'],
+            'age_rating' => $data['age_rating'],
             'poster_path' => $this->posterFileName != null ? asset($this->posterPath) . '/' . $this->posterFileName : $posterImageDB,
             'background_path' => $this->backgroundFileName != null ? asset($this->backgroundPath) . '/' . $this->backgroundFileName : $backgroundImageDB,
         ]);

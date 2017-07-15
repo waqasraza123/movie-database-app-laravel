@@ -22,7 +22,7 @@
                             <td>{{$movie->title}}</td>
                             <td>{{$movie->release_date}}</td>
                             <td>{{$movie->views}}</td>
-                            <td>{{$movie->rating}}</td>
+                            <td>{{isset($movie->ageRating) ? $movie->ageRating->age_rating : ""}}</td>
                             <td>
                                 <a href="{{ route('movies.edit', ['id' => $movie->id]) }}" class="btn btn-primary btn-xs" title="Edit Movie"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
                             </td>

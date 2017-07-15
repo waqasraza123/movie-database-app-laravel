@@ -90,7 +90,8 @@
             <label for="age_rating" class="col-sm-2 control-label">Age Rating</label>
 
             <div class="col-sm-10">
-                <input type="text" name="age_rating" class="form-control" id="age_rating" placeholder="age rating">
+                {!! Form::select('age_rating', $ageRatings, null, ['class' => 'form-control', 'id' => 'age-rating',
+                'placeholder' => 'Select age Rating']) !!}
             </div>
         </div>
         <div class="form-group">
@@ -136,8 +137,8 @@
     <!-- /.box-footer -->
 </div>
 <!-- /.box -->
-@section('footer')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet">
+@section('footer'){{--
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet">--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script src="{{asset('/lte/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('/lte/plugins/iCheck/icheck.min.js')}}"></script>

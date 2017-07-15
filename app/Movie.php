@@ -42,4 +42,9 @@ class Movie extends Model
         return $this->belongsToMany(Language::class, 'languages_movies', 'movie_id', 'language_id');
     }
 
+    //a movie has only one age rating
+    public function ageRating(){
+        return $this->belongsTo(AgeRating::class, 'age_rating', 'id');
+    }
+
 }

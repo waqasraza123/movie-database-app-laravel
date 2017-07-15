@@ -1,5 +1,7 @@
 @extends('layout.master')
-@section('page-title', 'Add a Movie')
+@section('page-title')
+    'Add a Movie'
+@endsection
 @section('page-header')
     @include('partials.layout.page-header', ['heading' => 'Movies', 'sub' => 'Add a Movie'])
 @endsection

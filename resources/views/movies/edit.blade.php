@@ -1,5 +1,7 @@
 @extends('layout.master')
-@section('page-title', 'Update Movie')
+@section('page-title')
+    'Update Movie'
+@endsection
 @section('page-header')
     @include('partials.layout.page-header', ['heading' => 'Movies', 'sub' => 'Update Movie'])
 @endsection
@@ -25,7 +27,7 @@
 @section('footer')
     <script src="{{asset('/lte/plugins/daterangepicker/daterangepicker.js')}}"></script>
     <script src="{{asset('/lte/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet">
+    {{--<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet">--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script src="{{asset('/lte/plugins/iCheck/icheck.min.js')}}"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
