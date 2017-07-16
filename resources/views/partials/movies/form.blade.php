@@ -4,16 +4,12 @@
         <h3 class="box-title">Fill the Form.</h3>
     </div>
 
-    <input type="hidden" name="_token" value="{{csrf_token()}}">
-
     <div class="box-body">
         <div class="form-group">
             <label for="poster" class="col-sm-2 control-label">Poster</label>
 
             <div class="col-sm-10">
-                <input type="file" name="poster" class="form-control" id="poster" @change="onFileChange">
-                {{--display errors if field has errors using FormError component--}}
-                <span class="text text-red poster" v-if="form.errors.get('poster')" v-text="form.errors.get('poster')"></span>
+                <input type="file" name="poster" class="form-control" id="poster" required>
             </div>
         </div>
         <div class="form-group">
@@ -28,9 +24,7 @@
 
             <div class="col-sm-10">
                 {!! Form::text('title', null, ['class' => 'form-control', 'id' => 'title',
-                'v-model' => 'form.title', 'placeholder' => 'movie title']) !!}
-                {{--display errors if field has errors using FormError component--}}
-                <span class="text text-red" v-text="form.errors.get('title')"></span>
+                'placeholder' => 'movie title', 'required' => true]) !!}
             </div>
         </div>
         <div class="form-group">
@@ -65,10 +59,8 @@
             <label for="language" class="col-sm-2 control-label">Language</label>
 
             <div class="col-sm-10">
-                {!! Form::select('language[]', $languages, null, ['placeholder' => 'Select a Language',
-                'id' => 'language', 'v-model' => 'form.language', 'change' => 'changeLanguage($event)', 'multiple' => true]) !!}
-                {{--display errors if field has errors using FormError component--}}
-                <span class="text text-red language" v-text="form.errors.get('language')"></span>
+                {!! Form::select('language[]', $languages, null, [
+                'id' => 'language', 'multiple' => true, 'required' => true]) !!}
             </div>
         </div>
         <div class="form-group">
@@ -92,6 +84,14 @@
             <div class="col-sm-10">
                 {!! Form::select('age_rating', $ageRatings, null, ['class' => 'form-control', 'id' => 'age-rating',
                 'placeholder' => 'Select age Rating']) !!}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="keywords" class="col-sm-2 control-label">Keywords</label>
+
+            <div class="col-sm-10">
+                {!! Form::select('keywords[]', $keywords, null, ['class' => 'form-control', 'id' => 'keywords',
+                'multiple' => true]) !!}
             </div>
         </div>
         <div class="form-group">
@@ -142,4 +142,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script src="{{asset('/lte/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('/lte/plugins/iCheck/icheck.min.js')}}"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/additional-methods.min.js"></script>
 @endsection

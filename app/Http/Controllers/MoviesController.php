@@ -41,7 +41,8 @@ class MoviesController extends Controller
         $languages = Language::pluck('language', 'id');
         $genres = Genre::pluck('genre', 'id');
         $ageRatings = AgeRating::pluck('age_rating', 'id');
-        return view('movies.create', compact('languages', 'genres', 'ageRatings'));
+        $keywords = DB::table('tagging_tags')->pluck('name', 'name');
+        return view('movies.create', compact('languages', 'genres', 'ageRatings', 'keywords'));
     }
 
     /**
@@ -61,21 +62,25 @@ class MoviesController extends Controller
             'synopsis' => $data['synopsis'],
             'release_date' => $data['release_date'],
             'runtime' => $data['runtime'],
-            'age_rating' => $data['age_rating'],
+            'age_rating' => isset($data['age_rating']) ? $data['age_rating'] : null,
             'views' => $data['views'],
             'homepage' => $data['homepage'],
             'featured' => $data['featured'] == 'featured' ? 1 : 0,
             'stream_url' => $data['stream_url'],
             'buy_url' => $data['buy_url'],
-            'age_rating' => $data['age_rating'],
             'poster_path' => asset($this->posterPath) . '/' . $this->posterFileName,
             'background_path' => asset($this->backgroundPath) . '/' . $this->backgroundFileName,
         ]);
 
         if($movie){
             $movie->languages()->sync($data['language']);
-            $movie->genres()->sync($data['genre']);
+            if(isset($data['genre']))
+                $movie->genres()->sync($data['genre']);
+            if(isset($data['keywords']))
+                $movie->tag($data['keywords']);
         }
+
+        return redirect()->back()->withSuccess('Movie created Successfully');
     }
 
     /**
@@ -101,14 +106,20 @@ class MoviesController extends Controller
         $languages = Language::pluck('language', 'id');
         $genres = Genre::pluck('genre', 'id');
         $ageRatings = AgeRating::pluck('age_rating', 'id');
+        $keywords = DB::table('tagging_tags')->pluck('name', 'name');
         $langSelect = $movie->languages()->pluck('languages.id', 'language')->toArray();
         $genreSelect = $movie->genres()->pluck('genres.id', 'genre')->toArray();
+        $keywordsSelect = DB::table('tagging_tagged')->where([
+            'taggable_type' => 'App\Movie',
+            'taggable_id' => $id
+            ])
+            ->pluck('tag_name', 'tag_name');
         $ageRatingsSelect = AgeRating::find($movie->age_rating);
         if($ageRatingsSelect){
             $ageRatingsSelect = $ageRatingsSelect->id;
         }
         return view('movies.edit', compact('movie', 'languages', 'langSelect',
-            'genres', 'genreSelect', 'ageRatings', 'ageRatingsSelect'));
+            'genres', 'genreSelect', 'ageRatings', 'ageRatingsSelect', 'keywords', 'keywordsSelect'));
     }
 
     /**
@@ -138,14 +149,19 @@ class MoviesController extends Controller
             'featured' => $data['featured'] == 'featured' ? 1 : 0,
             'stream_url' => $data['stream_url'],
             'buy_url' => $data['buy_url'],
-            'age_rating' => $data['age_rating'],
             'poster_path' => $this->posterFileName != null ? asset($this->posterPath) . '/' . $this->posterFileName : $posterImageDB,
             'background_path' => $this->backgroundFileName != null ? asset($this->backgroundPath) . '/' . $this->backgroundFileName : $backgroundImageDB,
         ]);
         $movie = Movie::find($id);
         if($movie){
-            $movie->languages()->sync($data['language']);
-            $movie->genres()->sync($data['genre']);
+            if(isset($data['language']))
+                $movie->languages()->sync($data['language']);
+            if(isset($data['genre']))
+                $movie->genres()->sync($data['genre']);
+            if(isset($data['keywords']))
+                $movie->retag($data['keywords']);
+            else
+                $movie->untag();
         }
 
         return redirect()->back()->with([
@@ -166,6 +182,7 @@ class MoviesController extends Controller
         $movie = Movie::find($id);
         $movie->languages()->sync([]);
         $movie->genres()->sync([]);
+        $movie->untag();
         $movie->delete();
 
         return redirect()->back()->withSuccess('Movie has been deleted');

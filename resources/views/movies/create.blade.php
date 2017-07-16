@@ -13,8 +13,11 @@
 
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
-            {!! Form::open(['class' => 'form-horizontal', '@submit.prevent' => 'form.createMovie', 'files' => true,
-            '@keydown' => 'form.errors.clear($event.target.name)', 'id' => 'create-movie-form']) !!}
+            @include('partials.errors.error')
+            @include('partials.errors.success')
+
+            {!! Form::open(['class' => 'form-horizontal', 'files' => true,
+            'id' => 'create-movie-form', 'url' => route('movies.store'), 'method' => 'post']) !!}
                 @include('partials.movies.form')
             {!! Form::close() !!}
         </div>

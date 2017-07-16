@@ -11,6 +11,9 @@ $(function(){
     var confirmDelete = $('.confirm-delete')
     var deleteMovieForm = $(".delete-movie-form")
     var ageRating = $("#age-rating")
+    var keywords = $("#keywords")
+    var createMovieForm = $("#create-movie-form")
+
     /**
      * custom work
      */
@@ -28,6 +31,42 @@ $(function(){
     }
     if(ageRating.length){
         ageRating.select2()
+    }
+    if(keywords.length){
+        keywords.select2({
+            tags: true,
+            createTag: function (params) {
+                var term = $.trim(params.term);
+                var count = 0
+                var existsVar = false;
+                if($('#keywords option').length > 0){
+                    $('#keywords option').each(function(){
+                        if ($(this).text().toUpperCase() == term.toUpperCase()) {
+                            existsVar = true
+                            return false;
+                        }else{
+                            existsVar = false
+                        }
+                    });
+                    if(existsVar){
+                        return null;
+                    }
+                    return {
+                        id: params.term,
+                        text: params.term,
+                        newTag: true
+                    }
+                }else{
+                    return {
+                        id: params.term,
+                        text: params.term,
+                        newTag: true
+                    }
+                }
+            },
+            maximumInputLength: 20, // only allow terms up to 20 characters long
+            closeOnSelect: true
+        })
     }
     try {
         //iCheck for checkbox and radio inputs
@@ -50,10 +89,15 @@ $(function(){
         }
     })
     language.on("select2:close", function (e) {
-        $(this).valid();
+        //$(this).valid();
     });
     if(updatingMovieForm.length){
         updatingMovieForm.validate({
+            ignore: 'input[type=hidden]',
+        })
+    }
+    if(createMovieForm.length){
+        createMovieForm.validate({
             ignore: 'input[type=hidden]',
         })
     }

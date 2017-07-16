@@ -10,8 +10,9 @@ class Movie extends Model
 
     protected $table = 'movies';
     public $timestamps = true;
-
+    use \Conner\Tagging\Taggable;
     use SoftDeletes;
+
 
     protected $dates = ['deleted_at'];
     protected $fillable = array('title', 'aka_title', 'plot', 'synopsis', 'background_path',

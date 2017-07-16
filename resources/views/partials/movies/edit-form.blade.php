@@ -91,6 +91,14 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="keywords" class="col-sm-2 control-label">Keywords</label>
+
+            <div class="col-sm-10">
+                {!! Form::select('keywords[]', $keywords, $keywordsSelect, ['class' => 'form-control', 'id' => 'keywords',
+                'multiple' => true]) !!}
+            </div>
+        </div>
+        <div class="form-group">
             <label for="views" class="col-sm-2 control-label">Views</label>
 
             <div class="col-sm-10">
