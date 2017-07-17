@@ -25,14 +25,15 @@ if (typeof jQuery === "undefined") {
  *              prevents conflict with other plugins and is a better
  *              way to organize our code.
  */
-$.AdminLTE = {};
+jQuery.AdminLTE = {};
 
 /* --------------------
  * - AdminLTE Options -
  * --------------------
  * Modify these options to suit your implementation
  */
-$.AdminLTE.options = {
+
+jQuery.AdminLTE.options = {
   //Add slimscroll to navbar menus
   //This requires you to load the slimscroll plugin
   //in every page before app.js

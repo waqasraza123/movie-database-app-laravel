@@ -13,16 +13,28 @@ $(function(){
     var ageRating = $("#age-rating")
     var keywords = $("#keywords")
     var createMovieForm = $("#create-movie-form")
+    var birthDate = $("#birth-date")
 
     /**
      * custom work
      */
+
+    //attach date select
+    //to fields
+    if(birthDate.length){
+        birthDate.datepicker({
+            autoclose: true
+        });
+    }
     if(releaseDate.length){
         //Date picker
         releaseDate.datepicker({
             autoclose: true
         });
     }
+
+
+    //attach select 2 with form fields
     if(language.length){
         language.select2()
     }

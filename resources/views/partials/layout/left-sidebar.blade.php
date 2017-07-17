@@ -34,7 +34,51 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="active"><a href="{{route('movies.index')}}"><i class="fa fa-circle-o"></i> Movies</a></li>
-                    <li><a href="{{route('movies.create')}}"><i class="fa fa-circle-o"></i> Create</a></li>
+                    <li><a href="{{route('movies.create')}}"><i class="fa fa-edit"></i> Create</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-user"></i> <span>People</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <a href="#"><i class="fa fa-circle-o"></i> Cast
+                            <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('custom-person.index', ['person' => 'cast'])}}"><i class="fa fa-circle-o"></i> View All</a></li>
+                            <li>
+                                <a href="{{route('custom-person.create', ['person' => 'cast'])}}"><i class="fa fa-edit"></i> Add Cast
+                                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-circle-o"></i> Crew
+                            <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('custom-person.index', ['person' => 'crew'])}}"><i class="fa fa-circle-o"></i> View All</a></li>
+                            <li>
+                                <a href="{{route('custom-person.create', ['person' => 'crew'])}}"><i class="fa fa-edit"></i> Add Crew
+                                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
         </ul>

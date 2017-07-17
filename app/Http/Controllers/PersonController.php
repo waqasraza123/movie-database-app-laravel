@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-class PersonController extends Controller 
+use Illuminate\Http\Request;
+
+class PersonController extends Controller
 {
 
   /**
@@ -18,11 +20,12 @@ class PersonController extends Controller
   /**
    * Show the form for creating a new resource.
    *
+   * @param $personType
    * @return Response
    */
-  public function create()
+  public function create($personType)
   {
-    
+      return view('persons.create', compact('personType'));
   }
 
   /**
@@ -30,9 +33,11 @@ class PersonController extends Controller
    *
    * @return Response
    */
-  public function store()
+  public function store(Request $request, $person)
   {
-    
+      if($person == 'cast'){
+          $this->saveCast($request);
+      }
   }
 
   /**
@@ -52,9 +57,11 @@ class PersonController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function edit($id)
+  public function edit($id, $person)
   {
-    
+      if($person == 'cast'){
+          $this->editCast($id);
+      }
   }
 
   /**
@@ -78,7 +85,23 @@ class PersonController extends Controller
   {
     
   }
+
+    /**
+     * @param Request $request
+     */
+    public function saveCast(Request $request){
+        $this->validate($request, [
+           'name' => 'required | max:255',
+            /*'photo' => 'required | mimes:png,jpg,jpeg,svg',*/
+        ]);
+    }
+
+    /**
+     * edit cast member
+     *
+     * @param $id
+     */
+    public function editCast($id){
+    }
   
 }
-
-?>
