@@ -14,7 +14,8 @@ class Person extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = array('nickname', 'birth_date', 'birth_place', 'gender', 'biography', 'official_site', 'facebook', 'twitter', 'instagram');
+    protected $fillable = array('name', 'nickname', 'birth_date', 'birth_place', 'gender', 'biography',
+        'official_site', 'facebook', 'twitter', 'instagram', 'photo_path');
 
     public function movies()
     {

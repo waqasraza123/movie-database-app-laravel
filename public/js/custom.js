@@ -14,6 +14,7 @@ $(function(){
     var keywords = $("#keywords")
     var createMovieForm = $("#create-movie-form")
     var birthDate = $("#birth-date")
+    var createCastForm = $("#create-person-form")
 
     /**
      * custom work
@@ -107,6 +108,9 @@ $(function(){
         updatingMovieForm.validate({
             ignore: 'input[type=hidden]',
         })
+    }
+    if(createCastForm.length){
+        createCastForm.validate()
     }
     if(createMovieForm.length){
         createMovieForm.validate({

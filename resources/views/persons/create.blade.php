@@ -15,7 +15,7 @@
             @include('partials.errors.error')
             @include('partials.errors.success')
             @if($personType == 'cast')
-                @include('partials.persons.cast.create-form')
+                @include('partials.persons.cast.create-form', ['person' => $personType])
             @endif
         </div>
     </div>

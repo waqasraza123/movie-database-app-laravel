@@ -1,5 +1,5 @@
 {!! Form::open(['class' => 'form-horizontal', 'files' => true,
-            'id' => 'create-person-form', 'url' => route('person.store'), 'method' => 'post']) !!}
+            'id' => 'create-person-form', 'url' => route('custom-person.store', ['person' => $person]), 'method' => 'post']) !!}
 <!-- Horizontal Form -->
 <div class="box box-success">
     <div class="box-header with-border">
@@ -90,10 +90,26 @@
         </div>
 
         <div class="form-group">
-            <label for="views" class="col-sm-2 control-label">Views</label>
+            <label for="movie_id" class="col-sm-2 control-label">Movie</label>
 
             <div class="col-sm-10">
-                {!! Form::number('views', null, ['class' => 'form-control', 'id' => 'views']) !!}
+                {!! Form::select('movie_id', $movies, null, ['class' => 'form-control', 'id' => 'movie-id']) !!}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="character_name" class="col-sm-2 control-label">Character Name</label>
+
+            <div class="col-sm-10">
+                {!! Form::text('character_name', null, ['class' => 'form-control', 'id' => 'character-name']) !!}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="billing_position" class="col-sm-2 control-label">Billing Position</label>
+
+            <div class="col-sm-10">
+                {!! Form::number('billing_position', null, ['class' => 'form-control', 'id' => 'billing-position']) !!}
             </div>
         </div>
 
