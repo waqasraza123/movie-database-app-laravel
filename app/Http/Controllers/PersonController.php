@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Cast;
 use App\Movie;
 use App\Person;
 use Illuminate\Http\Request;
@@ -19,16 +18,15 @@ class PersonController extends Controller
    */
   public function index()
   {
-    
+      $persons = Person::paginate(16);
+      return view('persons.persons-index', compact('persons'));
   }
 
   /**
    * Show the form for creating a new resource.
    *
-   * @param $personType
-   * @return Response
    */
-  public function create($personType)
+  public function create()
   {
       $movies = Movie::pluck('title', 'id');
       return view('persons.create', compact('personType', 'movies'));
@@ -39,10 +37,34 @@ class PersonController extends Controller
    *
    * @return Response
    */
-  public function store(Request $request, $person)
+  public function store(Request $request)
   {
-      if($person == 'cast'){
-          $this->saveCast($request);
+      $this->validate($request, [
+          'name' => 'required | max:255',
+          /*'photo' => 'required | mimes:png,jpg,jpeg,svg',*/
+      ]);
+
+      $data = $request->all();
+
+      $person = Person::create([
+          'name' => $data['name'],
+          'nickname' => $data['nickname'],
+          'birth_date' => $data['birth_date'],
+          'birth_place' => $data['birth_place'],
+          'official_site' => $data['official_site'],
+          'biography' => $data['biography'],
+          'facebook' => $data['facebook'],
+          'twitter' => $data['twitter'],
+          'instagram' => $data['instagram'],
+          'gender' => $data['gender'],
+          'photo_path' => asset($this->photoPath) . '/' . $this->photoFileName,
+      ]);
+
+      if($person){
+          $this->saveImage($data);
+          return redirect()->back()->withSuccess('Person added Successfully.');
+      }else{
+          return redirect()->back()->withErrors('Error While Adding Person. Try Again!');
       }
   }
 
@@ -63,11 +85,11 @@ class PersonController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function edit($id, $person)
+  public function edit($id)
   {
-      if($person == 'cast'){
-          $this->editCast($id);
-      }
+      $person = Person::find($id);
+
+      return view('persons.person-edit', compact('person'));
   }
 
   /**
@@ -76,9 +98,35 @@ class PersonController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update(Request $request, $id)
   {
-    
+      $this->validate($request, [
+          'name' => 'required | max:255',
+          /*'photo' => 'required | mimes:png,jpg,jpeg,svg',*/
+      ]);
+
+      $data = $request->all();
+      $person = Person::find($id);
+      $this->saveImage($data);
+      $person = Person::where('id', $id)->update([
+          'name' => $data['name'],
+          'nickname' => $data['nickname'],
+          'birth_date' => $data['birth_date'],
+          'birth_place' => $data['birth_place'],
+          'official_site' => $data['official_site'],
+          'biography' => $data['biography'],
+          'facebook' => $data['facebook'],
+          'twitter' => $data['twitter'],
+          'instagram' => $data['instagram'],
+          'gender' => $data['gender'],
+          'photo_path' => isset($person->photo_path) ? asset($this->photoPath) . '/' . $this->photoFileName : $person->photo_path,
+      ]);
+
+      if($person){
+          return redirect()->back()->withSuccess('Person updated Successfully.');
+      }else{
+          return redirect()->back()->withErrors('Error While Adding Cast Member. Try Again!');
+      }
   }
 
   /**
@@ -89,7 +137,9 @@ class PersonController extends Controller
    */
   public function destroy($id)
   {
-    
+      Person::destroy($id);
+
+      return redirect()->back()->withSuccess('Person deleted Successfully');
   }
 
     /**
@@ -118,21 +168,13 @@ class PersonController extends Controller
         ]);
 
         if($person){
-            $cast = Cast::create([
+            $this->saveImage($data);
+            /*$cast = Cast::create([
                 'person_id' => $person->id,
                 'movie_id' => $data['movie_id'],
                 'character_name' => $data['character_name'],
                 'billing_position' => $data['billing_position']
-            ]);
-
-            if($cast){
-                $movieTitle = Movie::where('id', $data['movie_id'])->first()->title;
-                $this->saveImage($data, $movieTitle);
-                return redirect()->back()->withSuccess('Cast Member Added Successfully');
-            }
-            else{
-                return redirect()->back()->withSuccess('Error While Adding Cast Member. Try Again!');
-            }
+            ]);*/
             
         }else{
             return redirect()->back()->withSuccess('Error While Adding Cast Member. Try Again!');
@@ -144,7 +186,7 @@ class PersonController extends Controller
      *
      * @param $data
      */
-    public function saveImage($data, $movieTitle)
+    public function saveImage($data)
     {
         if (isset($data['photo'])) {
             $file = $data['photo'];
@@ -153,7 +195,7 @@ class PersonController extends Controller
             $fileName = preg_replace("/\\s/", "_", $file->getClientOriginalName());
             $this->photoFileName = $fileName;
             //Move Uploaded File
-            $destinationPath = 'uploads/movies/casts/' . preg_replace("/\\s/", "_", $movieTitle) . '/' . $data['name'];
+            $destinationPath = 'uploads/persons/' . preg_replace("/\\s/", "_", $data['name']);
             $this->photoPath = $destinationPath;
             $file->move($destinationPath, $fileName);
         }

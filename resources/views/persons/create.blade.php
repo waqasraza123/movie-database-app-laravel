@@ -1,9 +1,9 @@
 @extends('layout.master')
 @section('page-title')
-    @if($personType == 'cast') {{'Add Cast Members'}} @endif
+    Add Persons
 @endsection
 @section('page-header')
-    @include('partials.layout.page-header', ['heading' => $personType, 'sub' => 'Add a member'])
+    @include('partials.layout.page-header', ['heading' => 'Persons', 'sub' => 'Add a Person'])
 @endsection
 @section('header')
     <link rel="stylesheet" href="{{asset('/lte/plugins/datepicker/datepicker3.css')}}">
@@ -14,9 +14,7 @@
         <div class="col-sm-8 col-sm-offset-2">
             @include('partials.errors.error')
             @include('partials.errors.success')
-            @if($personType == 'cast')
-                @include('partials.persons.cast.create-form', ['person' => $personType])
-            @endif
+            @include('partials.persons.create-person-form')
         </div>
     </div>
 

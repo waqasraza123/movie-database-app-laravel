@@ -15,10 +15,6 @@ Route::get('/', function () {
     return view('dashboard.dashboard');
 });
 Route::resource('movies', 'MoviesController');
-Route::get('person/{person}/create', 'PersonController@create')->name('custom-person.create');
-Route::get('person/{person}/show', 'PersonController@index')->name('custom-person.index');
-Route::get('person/{person}/{id}/edit', 'PersonController@index')->name('custom-person.edit');
-Route::post('person/{person}', 'PersonController@store')->name('custom-person.store');
 Route::resource('person', 'PersonController');
 Route::resource('job', 'JobController');
 Route::resource('genre', 'GenreController');
