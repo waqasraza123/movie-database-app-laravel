@@ -14,7 +14,9 @@ $(function(){
     var keywords = $("#keywords")
     var createMovieForm = $("#create-movie-form")
     var birthDate = $("#birth-date")
-    var createCastForm = $("#create-person-form")
+    var createPersonForm = $("#create-person-form")
+    var createCastForm = $("#create-cast-form")
+    var createCrewForm = $("#create-crew-form")
 
     /**
      * custom work
@@ -111,6 +113,12 @@ $(function(){
     }
     if(createCastForm.length){
         createCastForm.validate()
+    }
+    if(createPersonForm.length){
+        createPersonForm.validate();
+    }
+    if(createCrewForm.length){
+        createCrewForm.validate();
     }
     if(createMovieForm.length){
         createMovieForm.validate({

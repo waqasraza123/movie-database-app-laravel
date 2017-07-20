@@ -56,9 +56,9 @@
                 </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{route('person.index', ['person' => 'cast'])}}"><i class="fa fa-circle-o"></i> View All</a></li>
+                    <li><a href="{{route('cast.index')}}"><i class="fa fa-circle-o"></i> View All</a></li>
                     <li>
-                        <a href="{{route('person.create', ['person' => 'cast'])}}"><i class="fa fa-edit"></i> Add Cast
+                        <a href="{{route('cast.create')}}"><i class="fa fa-edit"></i> Add Cast
                             <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -73,9 +73,9 @@
                 </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{route('person.index', ['person' => 'crew'])}}"><i class="fa fa-circle-o"></i> View All</a></li>
+                    <li><a href="{{route('crew.index')}}"><i class="fa fa-circle-o"></i> View All</a></li>
                     <li>
-                        <a href="{{route('person.create', ['person' => 'crew'])}}"><i class="fa fa-edit"></i> Add Crew
+                        <a href="{{route('crew.create')}}"><i class="fa fa-edit"></i> Add Crew
                             <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
                     </span>

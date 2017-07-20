@@ -48,4 +48,11 @@ class Movie extends Model
         return $this->belongsTo(AgeRating::class, 'age_rating', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function cast(){
+        return $this->hasMany(Cast::class, 'movie_id', 'id');
+    }
+
 }

@@ -16,6 +16,8 @@ Route::get('/', function () {
 });
 Route::resource('movies', 'MoviesController');
 Route::resource('person', 'PersonController');
+Route::resource('cast', 'CastController');
+Route::resource('crew', 'CrewController');
 Route::resource('job', 'JobController');
 Route::resource('genre', 'GenreController');
 Route::resource('genremovie', 'GenreMovieController');

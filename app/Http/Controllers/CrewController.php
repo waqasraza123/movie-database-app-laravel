@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Cast;
+use App\Crew;
+use Illuminate\Http\Request;
 use App\Movie;
 use App\Person;
-use Illuminate\Http\Request;
 
-class CastController extends Controller
+class CrewController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class CastController extends Controller
      */
     public function index()
     {
-        $cast = Cast::paginate(16);
-        return view('cast.cast-index', compact('cast'));
+        $crew = Crew::paginate(16);
+        return view('crew.crew-index', compact('crew'));
     }
 
     /**
@@ -29,7 +29,8 @@ class CastController extends Controller
     {
         $movies = Movie::pluck('title', 'id');
         $persons = Person::pluck('name', 'id');
-        return view('cast.cast-create', compact('movies', 'persons'));
+        $jobs = collect([['id' => '1', 'name' => 'Director'], ['id' => '2', 'name' => 'Producer']])->pluck('name', 'id');
+        return view('crew.crew-create', compact('movies', 'persons', 'jobs'));
     }
 
     /**
@@ -41,26 +42,24 @@ class CastController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'billing_position' => 'required | integer',
-            'character_name' => 'required | max : 255',
             'person_id' => 'required | integer',
-            'movie_id' => 'required | integer'
+            'movie_id' => 'required | integer',
+            'job_id' => 'required | integer'
         ]);
 
         $data = $request->all();
 
-        $cast = Cast::create([
+        $crew = Crew::create([
             'movie_id' => $data['movie_id'],
-            'character_name' => $data['character_name'],
-            'billing_position' => $data['billing_position'],
-            'person_id' => $data['person_id']
+            'person_id' => $data['person_id'],
+            'job_id' => $data['job_id']
         ]);
 
-        if($cast){
-            return redirect()->back()->withSuccess('Cast added Successfully');
+        if($crew){
+            return redirect()->back()->withSuccess('Crew added Successfully');
         }
         else{
-            return redirect()->back()->withErrors('Error Adding Cast, Try Again.');
+            return redirect()->back()->withErrors('Error Adding Crew, Try Again.');
         }
     }
 
@@ -83,11 +82,12 @@ class CastController extends Controller
      */
     public function edit($id)
     {
-        $cast = Cast::find($id);
+        $crew = Crew::find($id);
         $movies = Movie::pluck('title', 'id');
         $persons = Person::pluck('name', 'id');
-        if($cast){
-            return view('cast.cast-edit', compact('cast', 'persons', 'movies'));
+        $jobs = collect([['id' => '1', 'name' => 'Director'], ['id' => '2', 'name' => 'Producer']])->pluck('name', 'id');
+        if($crew){
+            return view('crew.crew-edit', compact('crew', 'persons', 'movies', 'jobs'));
         }
     }
 
@@ -101,26 +101,24 @@ class CastController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'billing_position' => 'required | integer',
-            'character_name' => 'required | max : 255',
             'person_id' => 'required | integer',
-            'movie_id' => 'required | integer'
+            'movie_id' => 'required | integer',
+            'job_id' => 'required | integer'
         ]);
 
         $data = $request->all();
 
-        $cast = Cast::where('id', $id)->update([
+        $crew = Crew::where('id', $id)->update([
             'movie_id' => $data['movie_id'],
-            'character_name' => $data['character_name'],
-            'billing_position' => $data['billing_position'],
-            'person_id' => $data['person_id']
+            'person_id' => $data['person_id'],
+            'job_id' => $data['job_id']
         ]);
 
-        if($cast){
-            return redirect()->back()->withSuccess('Cast Updated Successfully');
+        if($crew){
+            return redirect()->back()->withSuccess('Crew Updated Successfully');
         }
         else{
-            return redirect()->back()->withErrors('Error Updating Cast, Try Again.');
+            return redirect()->back()->withErrors('Error Updating Crew, Try Again.');
         }
     }
 
@@ -132,8 +130,8 @@ class CastController extends Controller
      */
     public function destroy($id)
     {
-        Cast::destroy($id);
+        Crew::destroy($id);
 
-        return redirect()->back()->withSuccess('Cast Member Deleted Successfully');
+        return redirect()->back()->withSuccess('Crew Member Deleted Successfully');
     }
 }
