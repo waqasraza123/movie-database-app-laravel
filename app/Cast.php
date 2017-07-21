@@ -13,13 +13,6 @@ class Cast extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function movie(){
-        return $this->belongsTo(Movie::class, 'movie_id', 'id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function person(){
         return $this->belongsTo(Person::class, 'person_id', 'id');
     }

@@ -20,9 +20,14 @@ class Person extends Model
     /**
      * @return mixed
      */
-    public function movies()
+    public function castMovies()
     {
-        return $this->belongsToMany('Movie', 'movies_people')->withPivot('job_id', 'known_for', 'character', 'order_no', 'note')->orderBy('release_date', 'desc');
+        return $this->belongsToMany(Movie::class, 'casts_movies', 'person_id', 'movie_id');
+    }
+
+    public function crewMovies()
+    {
+        return $this->belongsToMany(Movie::class, 'crew_movies', 'person_id', 'movie_id');
     }
 
     /**

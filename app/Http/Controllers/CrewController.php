@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Crew;
+use App\Job;
 use Illuminate\Http\Request;
 use App\Movie;
 use App\Person;
@@ -16,7 +17,7 @@ class CrewController extends Controller
      */
     public function index()
     {
-        $crew = Crew::paginate(16);
+        $crew = Person::with('crewMovies')->paginate(16);
         return view('crew.crew-index', compact('crew'));
     }
 
@@ -29,7 +30,7 @@ class CrewController extends Controller
     {
         $movies = Movie::pluck('title', 'id');
         $persons = Person::pluck('name', 'id');
-        $jobs = collect([['id' => '1', 'name' => 'Director'], ['id' => '2', 'name' => 'Producer']])->pluck('name', 'id');
+        $jobs = Job::pluck('name', 'id');
         return view('crew.crew-create', compact('movies', 'persons', 'jobs'));
     }
 
@@ -85,7 +86,7 @@ class CrewController extends Controller
         $crew = Crew::find($id);
         $movies = Movie::pluck('title', 'id');
         $persons = Person::pluck('name', 'id');
-        $jobs = collect([['id' => '1', 'name' => 'Director'], ['id' => '2', 'name' => 'Producer']])->pluck('name', 'id');
+        $jobs = Job::pluck('name', 'id');
         if($crew){
             return view('crew.crew-edit', compact('crew', 'persons', 'movies', 'jobs'));
         }

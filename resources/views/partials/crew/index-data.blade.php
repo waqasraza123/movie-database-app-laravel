@@ -11,34 +11,36 @@
                         <th>ID</th>
                         <th>Person</th>
                         <th>Movie</th>
-                        <th>Job</th>
                         <th></th>
                         <th></th>
                     </tr>
                     @forelse($crew as $c)
-                        <tr>
-                            <td>{{$c->id}}</td>
-                            <td>{{$c->person->name}}</td>
-                            <td>{{$c->movie->title}}</td>
-                            <td>{{$c->job_id}}</td>
-                            <td>
-                                <a href="{{ route('crew.edit', ['id' => $c->id]) }}" class="btn btn-primary btn-xs" title="Edit Crew"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
-                            </td>
-                            <td>
-                                {!! Form::open([
-                                    'method'=>'DELETE',
-                                    'url' => route('crew.destroy', ['id' => $c->id]),
-                                    'style' => 'display:inline',
-                                    'class' => 'delete-crew-form'
-                                ]) !!}
-                                {!! Form::button('<span class="glyphicon glyphicon-trash waves-effect" aria-hidden="true" title="Delete Crew" />', array(
-                                        'type' => 'submit',
-                                        'class' => 'btn btn-danger btn-xs confirm-delete',
-                                        'title' => 'Delete Crew',
-                                )) !!}
-                                {!! Form::close() !!}
-                            </td>
-                        </tr>
+                        @foreach($c->crewMovies as $m)
+                            <tr>
+                                <td>{{++$loop->index}}</td>
+                                <td>{{$c->name}}</td>
+                                <td>{{$m->title}}</td>
+                                <td>
+                                    <a href="{{ route('crew.edit', ['id' => \Illuminate\Support\Facades\DB::table('crew_movies')->where(['movie_id' => $m->id,
+                                'person_id' => $c->id])->first()->id]) }}" class="btn btn-primary btn-xs" title="Edit Crew"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                                </td>
+                                <td>
+                                    {!! Form::open([
+                                        'method'=>'DELETE',
+                                        'url' => route('crew.destroy', ['id' => \Illuminate\Support\Facades\DB::table('crew_movies')->where(['movie_id' => $m->id,
+                                'person_id' => $c->id])->first()->id]),
+                                        'style' => 'display:inline',
+                                        'class' => 'delete-crew-form'
+                                    ]) !!}
+                                    {!! Form::button('<span class="glyphicon glyphicon-trash waves-effect" aria-hidden="true" title="Delete Crew" />', array(
+                                            'type' => 'submit',
+                                            'class' => 'btn btn-danger btn-xs confirm-delete',
+                                            'title' => 'Delete Crew',
+                                    )) !!}
+                                    {!! Form::close() !!}
+                                </td>
+                            </tr>
+                        @endforeach
                     @empty
                         <div class="alert alert-danger">No Crew.</div>
                     @endforelse

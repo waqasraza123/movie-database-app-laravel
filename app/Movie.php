@@ -52,7 +52,11 @@ class Movie extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function cast(){
-        return $this->hasMany(Cast::class, 'movie_id', 'id');
+        return $this->belongsToMany(Person::class, 'casts_movies', 'movie_id', 'person_id');
+    }
+
+    public function crew(){
+        return $this->belongsToMany(Person::class, 'crew_movies', 'movie_id', 'person_id');
     }
 
 }

@@ -16,7 +16,7 @@ class CastController extends Controller
      */
     public function index()
     {
-        $cast = Cast::paginate(16);
+        $cast = Person::with('castMovies')->paginate(16);
         return view('cast.cast-index', compact('cast'));
     }
 
@@ -86,9 +86,9 @@ class CastController extends Controller
         $cast = Cast::find($id);
         $movies = Movie::pluck('title', 'id');
         $persons = Person::pluck('name', 'id');
-        if($cast){
-            return view('cast.cast-edit', compact('cast', 'persons', 'movies'));
-        }
+
+        return view('cast.cast-edit', compact('cast', 'persons', 'movies'));
+
     }
 
     /**
