@@ -28,8 +28,8 @@
             <label for="character_name" class="col-sm-2 control-label">Job</label>
 
             <div class="col-sm-10">
-                {!! Form::select('job_id', $jobs, null, ['class' => 'form-control', 'id' => 'job-id',
-                'required' => true]) !!}
+                {!! Form::select('job_id[]', $jobs, null, ['class' => 'form-control', 'id' => 'job-id',
+                'required' => true, 'multiple' => true]) !!}
             </div>
         </div>
     </div>

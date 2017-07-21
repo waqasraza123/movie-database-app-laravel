@@ -18,6 +18,7 @@ $(function(){
     var createCastForm = $("#create-cast-form")
     var createCrewForm = $("#create-crew-form")
     var createJobsForm = $("#create-jobs-form")
+    var crewJobs = $("#job-id")
 
     /**
      * custom work
@@ -47,6 +48,9 @@ $(function(){
     }
     if(ageRating.length){
         ageRating.select2()
+    }
+    if(crewJobs.length){
+        crewJobs.select2()
     }
     if(keywords.length){
         keywords.select2({

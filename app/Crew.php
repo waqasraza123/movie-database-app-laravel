@@ -16,8 +16,8 @@ class Crew extends Model
         return $this->belongsTo(Person::class, 'person_id', 'id');
     }
 
-    public function job(){
-        return $this->belongsTo(Job::class, 'job_id', 'id');
+    public function jobs(){
+        return $this->belongsToMany(Job::class, 'crew_jobs', 'crew_id', 'job_id');
     }
 
 }

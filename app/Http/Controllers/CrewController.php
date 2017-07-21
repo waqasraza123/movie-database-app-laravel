@@ -45,7 +45,7 @@ class CrewController extends Controller
         $this->validate($request, [
             'person_id' => 'required | integer',
             'movie_id' => 'required | integer',
-            'job_id' => 'required | integer'
+            'job_id' => 'required'
         ]);
 
         $data = $request->all();
@@ -53,10 +53,10 @@ class CrewController extends Controller
         $crew = Crew::create([
             'movie_id' => $data['movie_id'],
             'person_id' => $data['person_id'],
-            'job_id' => $data['job_id']
         ]);
 
         if($crew){
+            $crew->jobs()->sync($data['job_id']);
             return redirect()->back()->withSuccess('Crew added Successfully');
         }
         else{
@@ -104,18 +104,18 @@ class CrewController extends Controller
         $this->validate($request, [
             'person_id' => 'required | integer',
             'movie_id' => 'required | integer',
-            'job_id' => 'required | integer'
+            'job_id' => 'required'
         ]);
 
         $data = $request->all();
 
         $crew = Crew::where('id', $id)->update([
             'movie_id' => $data['movie_id'],
-            'person_id' => $data['person_id'],
-            'job_id' => $data['job_id']
+            'person_id' => $data['person_id']
         ]);
 
         if($crew){
+            Crew::find($id)->jobs()->sync($data['job_id']);
             return redirect()->back()->withSuccess('Crew Updated Successfully');
         }
         else{
@@ -131,7 +131,9 @@ class CrewController extends Controller
      */
     public function destroy($id)
     {
-        Crew::destroy($id);
+        $crew = Crew::find($id);
+        $crew->jobs()->sync([]);
+        $crew->delete($id);
 
         return redirect()->back()->withSuccess('Crew Member Deleted Successfully');
     }
