@@ -17,6 +17,7 @@ $(function(){
     var createPersonForm = $("#create-person-form")
     var createCastForm = $("#create-cast-form")
     var createCrewForm = $("#create-crew-form")
+    var createJobsForm = $("#create-jobs-form")
 
     /**
      * custom work
@@ -119,6 +120,9 @@ $(function(){
     }
     if(createCrewForm.length){
         createCrewForm.validate();
+    }
+    if(createJobsForm.length){
+        createJobsForm.validate();
     }
     if(createMovieForm.length){
         createMovieForm.validate({
