@@ -116,14 +116,44 @@ $(function(){
             ignore: 'input[type=hidden]',
         })
     }
-    if(createCastForm.length){
-        createCastForm.validate()
-    }
     if(createPersonForm.length){
         createPersonForm.validate();
     }
+    if(createCastForm.length){
+        createCastForm.validate({
+            submitHandler: function(form){
+                $.ajax({
+                    'type': form.method,
+                    'url': form.action,
+                    data: $(form).serialize(),
+                    success: function(){
+                        toastr.success('Cast Saved Successfully', 'Success!')
+                    },
+                    error: function(){
+
+                    }
+                })
+                return false;
+            }
+        })
+    }
     if(createCrewForm.length){
-        createCrewForm.validate();
+        createCrewForm.validate({
+            submitHandler: function(form){
+                $.ajax({
+                    'type': form.method,
+                    'url': form.action,
+                    data: $(form).serialize(),
+                    success: function(){
+                        toastr.success('Crew Saved Successfully', 'Success!')
+                    },
+                    error: function(){
+
+                    }
+                })
+                return false;
+            }
+        });
     }
     if(createJobsForm.length){
         createJobsForm.validate();
@@ -165,5 +195,4 @@ $(function(){
                 self.closest('form').submit();
         });
     }
-
 })

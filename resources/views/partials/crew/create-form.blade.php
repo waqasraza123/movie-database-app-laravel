@@ -14,16 +14,7 @@
                 'required' => true]) !!}
             </div>
         </div>
-
-        <div class="form-group">
-            <label for="movie_id" class="col-sm-2 control-label">Movie</label>
-
-            <div class="col-sm-10">
-                {!! Form::select('movie_id', $movies, null, ['class' => 'form-control', 'id' => 'movie-id',
-                'required' => true]) !!}
-            </div>
-        </div>
-
+        <input type="hidden" name="movie_id" value="{{$movie->id}}">
         <div class="form-group">
             <label for="character_name" class="col-sm-2 control-label">Job</label>
 

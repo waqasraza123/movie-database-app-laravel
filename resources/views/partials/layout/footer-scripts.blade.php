@@ -27,10 +27,19 @@
 <script src="{{asset('/lte/plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
 <!-- FastClick -->
 <script src="{{asset('/lte/plugins/fastclick/fastclick.js')}}"></script>
+<script src="{{asset('/lte/plugins/daterangepicker/daterangepicker.js')}}"></script>
+<script src="{{asset('/lte/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+{{--<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet">--}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script src="{{asset('/lte/plugins/iCheck/icheck.min.js')}}"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/additional-methods.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('/lte/dist/js/app.js')}}"></script>
 <script src="{{asset('swal/sweetalert.min.js')}}"></script>
+<script src="{{asset('toaster/toastr.min.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="{{asset('swal/sweetalert.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('toaster/toastr.min.css')}}">
 <script src="{{asset('/js/app.js')}}"></script>
 @yield('footer')
 <link rel="stylesheet" type="text/css" href="{{asset('/css/app.css')}}">

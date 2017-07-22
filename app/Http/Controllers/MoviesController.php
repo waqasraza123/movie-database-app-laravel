@@ -8,9 +8,10 @@ use App\Http\Requests\CreateMovieFormRequest;
 use App\Http\Requests\UpdateMovieFormRequest;
 use App\Language;
 use App\Movie;
+use App\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Lang;
+use App\Job;
 
 class MoviesController extends Controller
 {
@@ -109,6 +110,9 @@ class MoviesController extends Controller
         $keywords = DB::table('tagging_tags')->pluck('name', 'name');
         $langSelect = $movie->languages()->pluck('languages.id', 'language')->toArray();
         $genreSelect = $movie->genres()->pluck('genres.id', 'genre')->toArray();
+        $persons = Person::pluck('name', 'id');
+        $jobs = Job::pluck('name', 'id');
+        $movies = Movie::pluck('title', 'id');
         $keywordsSelect = DB::table('tagging_tagged')->where([
             'taggable_type' => 'App\Movie',
             'taggable_id' => $id
@@ -119,7 +123,8 @@ class MoviesController extends Controller
             $ageRatingsSelect = $ageRatingsSelect->id;
         }
         return view('movies.edit', compact('movie', 'languages', 'langSelect',
-            'genres', 'genreSelect', 'ageRatings', 'ageRatingsSelect', 'keywords', 'keywordsSelect'));
+            'genres', 'genreSelect', 'ageRatings', 'ageRatingsSelect', 'keywords', 'keywordsSelect',
+            'persons', 'movies', 'jobs'));
     }
 
     /**
