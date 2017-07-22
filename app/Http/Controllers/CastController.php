@@ -49,12 +49,17 @@ class CastController extends Controller
 
         $data = $request->all();
 
-        $cast = Cast::create([
-            'movie_id' => $data['movie_id'],
-            'character_name' => $data['character_name'],
-            'billing_position' => $data['billing_position'],
-            'person_id' => $data['person_id']
-        ]);
+        $cast = Cast::updateOrCreate(
+            [
+                'movie_id' => $data['movie_id'],
+                'person_id' => $data['person_id']
+
+            ],
+            [
+                'billing_position' => $data['billing_position'],
+                'character_name' => $data['character_name']
+            ]
+        );
 
         if($cast){
             return redirect()->back()->withSuccess('Cast added Successfully');

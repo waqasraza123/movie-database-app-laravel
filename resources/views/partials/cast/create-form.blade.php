@@ -38,6 +38,7 @@
     <!-- /.box-body -->
     <div class="box-footer">
         <button type="submit" class="btn btn-success pull-right">Create</button>
+        <button style="margin-right: 10px;" type="button" class="btn btn-danger pull-right cast-done">Done</button>
     </div>
     <!-- /.box-footer -->
 </div>

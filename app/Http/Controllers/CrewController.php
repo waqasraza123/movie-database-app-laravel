@@ -50,10 +50,12 @@ class CrewController extends Controller
 
         $data = $request->all();
 
-        $crew = Crew::create([
-            'movie_id' => $data['movie_id'],
-            'person_id' => $data['person_id'],
-        ]);
+        $crew = Crew::updateOrCreate(
+            [
+                'movie_id' => $data['movie_id'],
+                'person_id' => $data['person_id'],
+            ]
+        );
 
         if($crew){
             $crew->jobs()->sync($data['job_id']);

@@ -50,7 +50,9 @@ $(function(){
         ageRating.select2()
     }
     if(crewJobs.length){
-        crewJobs.select2()
+        crewJobs.select2({
+            placeholder: 'Select Job'
+        })
     }
     if(keywords.length){
         keywords.select2({
@@ -128,6 +130,8 @@ $(function(){
                     data: $(form).serialize(),
                     success: function(){
                         toastr.success('Cast Saved Successfully', 'Success!')
+                        $(form).trigger('reset')
+
                     },
                     error: function(){
 
@@ -146,6 +150,8 @@ $(function(){
                     data: $(form).serialize(),
                     success: function(){
                         toastr.success('Crew Saved Successfully', 'Success!')
+                        $(form).trigger('reset')
+                        crewJobs.val('').trigger('change')
                     },
                     error: function(){
 
@@ -195,4 +201,16 @@ $(function(){
                 self.closest('form').submit();
         });
     }
+    $('.cast-done').click(function () {
+        $("#cast-modal").hide()
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        $("div").removeClass("mfp-bg")
+    })
+    $('.crew-done').click(function () {
+        $("#crew-modal").hide()
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        $("div").removeClass("mfp-bg")
+    })
 })
