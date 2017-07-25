@@ -14,7 +14,10 @@
 Route::get('/', function () {
     return view('dashboard.dashboard');
 });
+
 Route::resource('movies', 'MoviesController');
+Route::post('/movies/add-photos', 'PhotosController@store')->name('movies.photos.add');
+
 Route::resource('person', 'PersonController');
 Route::resource('cast', 'CastController');
 Route::resource('crew', 'CrewController');

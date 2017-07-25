@@ -16,14 +16,20 @@
             @include('partials.errors.success')
             <br>
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <a class="btn btn-primary" href="{{route('movies.create')}}">Add Movie</a>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cast-modal">Add Cast</button>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#crew-modal">Add Crew</button>
+                </div>
+                <div class="col-sm-2">
+                    <button id="add-photos-button" type="button" class="btn btn-help" data-toggle="modal" data-target="#photos-modal">Add Photos</button>
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#crew-modal">Add Videos</button>
                 </div>
             </div>
             <br>
@@ -67,4 +73,5 @@
 
         </div>
     </div>
+    @include('partials.movies.photos.add')
 @endsection

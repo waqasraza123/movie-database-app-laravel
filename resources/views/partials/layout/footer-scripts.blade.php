@@ -41,6 +41,9 @@
 <link rel="stylesheet" type="text/css" href="{{asset('swal/sweetalert.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('toaster/toastr.min.css')}}">
 <script src="{{asset('/js/app.js')}}"></script>
+<link href="{{asset('/dropzone/basic.min.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('/dropzone/dropzone.min.css')}}" rel="stylesheet" type="text/css">
+<script src="{{asset('/dropzone/dropzone.min.js')}}" type="text/javascript"></script>
 @yield('footer')
 <link rel="stylesheet" type="text/css" href="{{asset('/css/app.css')}}">
 <script src="{{asset('/js/custom.js')}}"></script>

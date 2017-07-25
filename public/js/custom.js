@@ -213,4 +213,23 @@ $(function(){
         $('.modal-backdrop').remove();
         $("div").removeClass("mfp-bg")
     })
+    $('#photos-done').click(function () {
+        $("#photos-modal").hide()
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        $("div").removeClass("mfp-bg")
+    })
+
+    Dropzone.autoDiscover = true;
+    Dropzone.options.addPhotosForm = {
+        paramName: "file", // The name that will be used to transfer the file
+        maxFilesize: 2, // MB
+        uploadMultiple: true,
+        acceptedFiles: 'image/*',
+        params: {'movie-id': $("#movie-id").val()},
+        addRemoveLinks: true,
+        url: '/movies/add-photos',
+        parallelUploads: 10000,
+    };
+
 })
