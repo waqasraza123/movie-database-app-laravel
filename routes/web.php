@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Route::resource('movies', 'MoviesController');
 Route::post('/movies/add-photos', 'PhotosController@store')->name('movies.photos.add');
+Route::post('/movies/add-videos', 'VideoController@store')->name('movies.videos.add');
 
 Route::resource('person', 'PersonController');
 Route::resource('cast', 'CastController');

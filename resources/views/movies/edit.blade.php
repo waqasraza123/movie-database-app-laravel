@@ -29,7 +29,7 @@
                     <button id="add-photos-button" type="button" class="btn btn-help" data-toggle="modal" data-target="#photos-modal">Add Photos</button>
                 </div>
                 <div class="col-sm-2">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#crew-modal">Add Videos</button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#videos-modal">Add Videos</button>
                 </div>
             </div>
             <br>
@@ -67,6 +67,24 @@
                     {!! Form::open(['class' => 'form-horizontal', 'files' => true,
             'id' => 'create-crew-form', 'url' => route('crew.store'), 'method' => 'post']) !!}
                         @include('partials.crew.create-form')
+                    {!! Form::close() !!}
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal fade" id="videos-modal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Video</h4>
+                </div>
+                <div class="modal-body">
+                    {!! Form::open(['class' => 'form-horizontal', 'files' => true,
+            'id' => 'add-videos-form', 'url' => route('movies.videos.add'), 'method' => 'post']) !!}
+                        @include('partials.movies.videos.videos-add')
                     {!! Form::close() !!}
                 </div>
             </div>

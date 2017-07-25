@@ -19,6 +19,7 @@ $(function(){
     var createCrewForm = $("#create-crew-form")
     var createJobsForm = $("#create-jobs-form")
     var crewJobs = $("#job-id")
+    var addVideosForm = $("#add-videos-form")
 
     /**
      * custom work
@@ -118,6 +119,26 @@ $(function(){
             ignore: 'input[type=hidden]',
         })
     }
+    if(addVideosForm.length){
+        addVideosForm.validate({
+            submitHandler: function (form) {
+                $.ajax({
+                    'type': form.method,
+                    'url': form.action,
+                    data: $(form).serialize(),
+                    success: function(){
+                        toastr.success('Video Saved Successfully', 'Success!')
+                        $(form).trigger('reset')
+
+                    },
+                    error: function(){
+
+                    }
+                })
+                return false;
+            }
+        })
+    }
     if(createPersonForm.length){
         createPersonForm.validate();
     }
@@ -215,6 +236,12 @@ $(function(){
     })
     $('#photos-done').click(function () {
         $("#photos-modal").hide()
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        $("div").removeClass("mfp-bg")
+    })
+    $('videos-done').click(function () {
+        $("#videos-modal").hide()
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
         $("div").removeClass("mfp-bg")
