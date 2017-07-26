@@ -23,7 +23,7 @@
                 'required' => true]) !!}
             </div>
         </div>
-        <input type="hidden" name="movie_id" value="{{$movie->id}}">
+        <input type="hidden" name="movie_id" value="{{$movie->id}}" id="movie-id">
         <div class="form-group">
             <label for="quality" class="col-sm-2 control-label">Quality</label>
 

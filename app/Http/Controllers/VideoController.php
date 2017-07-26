@@ -42,6 +42,7 @@ class VideoController extends Controller
           'video_embed' => $data['video_embed'],
           'quality' => $data['quality'],
           'type' => $data['type'],
+          'movie_id' => $data['movie_id']
       ]);
   }
 

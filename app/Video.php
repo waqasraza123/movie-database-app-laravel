@@ -9,7 +9,7 @@ class Video extends Model
 
     protected $table = 'videos';
     public $timestamps = true;
-    protected $fillable = array('title', 'type', 'quality', 'video_url', 'video_embed');
+    protected $fillable = array('title', 'type', 'quality', 'video_url', 'video_embed', 'movie_id');
 
     public function movie()
     {
