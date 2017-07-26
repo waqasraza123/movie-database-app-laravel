@@ -19,3 +19,18 @@ span.select2.select2-container.select2-container--default.select2-container--bel
 .error{
   color: $brand-danger;
 }
+.img-background {
+  background-color: #f1f1f1;
+  padding: 2px;
+}
+.img-background img {
+  margin: 0 auto;
+  display: block;
+}
+.white-background{
+  padding: 5px;
+  background-color: #fff;
+}
+.content.cast{
+  text-align: center;
+}

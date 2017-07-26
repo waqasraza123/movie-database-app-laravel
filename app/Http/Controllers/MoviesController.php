@@ -113,6 +113,10 @@ class MoviesController extends Controller
         $persons = Person::pluck('name', 'id');
         $jobs = Job::pluck('name', 'id');
         $movies = Movie::pluck('title', 'id');
+        $photos = $movie->photos;
+        $cast = $movie->cast;
+        $crew = $movie->crew;
+        $videos = $movie->videos;
         $keywordsSelect = DB::table('tagging_tagged')->where([
             'taggable_type' => 'App\Movie',
             'taggable_id' => $id
@@ -124,7 +128,7 @@ class MoviesController extends Controller
         }
         return view('movies.edit', compact('movie', 'languages', 'langSelect',
             'genres', 'genreSelect', 'ageRatings', 'ageRatingsSelect', 'keywords', 'keywordsSelect',
-            'persons', 'movies', 'jobs'));
+            'persons', 'movies', 'jobs', 'photos', 'videos', 'cast', 'crew'));
     }
 
     /**

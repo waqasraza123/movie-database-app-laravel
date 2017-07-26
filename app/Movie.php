@@ -35,7 +35,11 @@ class Movie extends Model
 
     public function videos()
     {
-        return $this->hasMany('Video');
+        return $this->hasMany(Video::class, 'movie_id', 'id');
+    }
+    public function photos()
+    {
+        return $this->hasMany(MoviePhotos::class, 'movie_id', 'id');
     }
 
     public function languages()
@@ -52,7 +56,8 @@ class Movie extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function cast(){
-        return $this->belongsToMany(Person::class, 'casts_movies', 'movie_id', 'person_id');
+        return $this->belongsToMany(Person::class, 'casts_movies', 'movie_id', 'person_id')
+            ->withPivot('character_name', 'billing_position');
     }
 
     public function crew(){

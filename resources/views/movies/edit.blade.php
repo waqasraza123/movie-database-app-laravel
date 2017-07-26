@@ -33,11 +33,7 @@
                 </div>
             </div>
             <br>
-            {!! Form::model($movie, ['class' => 'form-horizontal',
-            'id' => 'update-movie-form', 'files' => true,
-            'method' => 'PATCH', 'url' => route('movies.update', ['id' => $movie->id])]) !!}
-                @include('partials.movies.edit-form', ['movie' => $movie])
-            {!! Form::close() !!}
+            @include('partials.movies.tabs')
         </div>
     </div>
     <div id="cast-modal" class="modal fade" role="dialog">
