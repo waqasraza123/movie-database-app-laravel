@@ -240,7 +240,7 @@ $(function(){
         $('.modal-backdrop').remove();
         $("div").removeClass("mfp-bg")
     })
-    $('videos-done').click(function () {
+    $('.videos-done').click(function () {
         $("#videos-modal").hide()
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
