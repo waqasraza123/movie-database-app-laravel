@@ -14,7 +14,7 @@ class MakeMovieFieldsNullable extends Migration
     public function up()
     {
         Schema::table('movies', function (Blueprint $table) {
-            $table->increments('id')->unique()->change();
+            $table->increments('id');
             $table->string('aka_title')->nullable()->change();
             $table->string('plot')->nullable()->change();
             $table->text('synopsis')->nullable()->change();
