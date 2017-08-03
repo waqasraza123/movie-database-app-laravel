@@ -6,6 +6,11 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Admin Login</div>
+                @if ($alert = Session::get('alert-error'))
+					<div class="alert alert-error">
+						{{ $alert }}
+					</div>
+				@endif
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('adminAuthLogin') }}">
                         {{ csrf_field() }}
@@ -47,7 +52,7 @@
                                 </div>
                             </div>
                         </div>-->
-
+						
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">

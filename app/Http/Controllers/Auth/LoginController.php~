@@ -111,16 +111,19 @@ class LoginController extends Controller
 		        'type'     => '0'
 		    ]);
         }
-        \Log::info('emailid:'.$email.' and password:'.$password);
+        //\Log::info('emailid:'.$email.' and password:'.$password);
         $authUser = User::where('email', $email)->first();
-        \Log::info('LoginController: '.$authUser->email.' and '.$authUser->password);
-    	if ($authUser->email == $email and Hash::check($password,$authUser->password) and $authUser->type== '0') {
+        //\Log::info('LoginController: '.$authUser->email.' and '.$authUser->password);
+    	if ($authUser and $authUser->email == $email and Hash::check($password,$authUser->password) and $authUser->type== '0') {
             // Authentication passed...
             Auth::login($authUser,true);
             \Log::info('LoginController after Auth::login(): '.Auth::user());
             return redirect($this->redirectTo);
         }
-        return redirect('/admin/login');
+        else{
+        	
+        	return \Redirect::to('/admin/login')->with('alert-error','Your credentials does not match with our databse.');
+        }
     }
     
     /**
