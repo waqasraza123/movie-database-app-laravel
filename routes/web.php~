@@ -28,7 +28,7 @@ Route::get('/dashboard', function () {
 Route::get('/logout','Auth\LoginController@logout');
 
 //restricting the following routes to admin user only
-/*Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
+Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 {
     Route::resource('movies', 'MoviesController');
 	Route::post('/movies/add-photos', 'PhotosController@store')->name('movies.photos.add');

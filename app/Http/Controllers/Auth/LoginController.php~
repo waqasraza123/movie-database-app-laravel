@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\Hash;
 use Socialite;
 use App\User;
 //use App\AdminUser;
@@ -86,6 +87,7 @@ class LoginController extends Controller
             'email'    => $user->email,
             'provider' => $provider,
             'provider_id' => $user->id
+            
         ]);
     }
     
@@ -100,19 +102,19 @@ class LoginController extends Controller
     	$password = $request->input('password');
     	
     	// hardcoded the admin credentials
-    	$authUser = User::where('email', 'admin@moviesdatabase.com')->first();
-    	if(!($authUser and $authUser == '0')){
+    	$authUser1 = User::where('email', 'admin@moviesdatabase.com')->first();
+    	if(!($authUser1 and $authUser1->type == '0')){
     		User::create([
 		        'name'     => 'admin',
 		        'email'    => 'admin@moviesdatabase.com',
-		        'password' => 'admin@123',
-		        'type'     => 0
+		        'password' => Hash::make('admin@123'),
+		        'type'     => '0'
 		    ]);
         }
         \Log::info('emailid:'.$email.' and password:'.$password);
         $authUser = User::where('email', $email)->first();
         \Log::info('LoginController: '.$authUser->email.' and '.$authUser->password);
-    	if ($authUser->email == $email and $authUser->password == $password and $authUser->type== 0) {
+    	if ($authUser->email == $email and Hash::check($password,$authUser->password) and $authUser->type== '0') {
             // Authentication passed...
             Auth::login($authUser,true);
             \Log::info('LoginController after Auth::login(): '.Auth::user());

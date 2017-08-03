@@ -18,12 +18,11 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email', 50)->nullable();
             $table->string('password')->nullable();
+            //by default type = 1 means customers
+            // type = 0 means admins
+            $table->string('type')->default('1');
             $table->string('provider')->default('NULL');
-            $table->string('provider_id')->unique()->default('NULL');
-            //there are two types of users admin and customers
-            //so for admins the value of type = 0
-            // and for customers the value of type = 1
-            $table->string('type')->default(1);
+            $table->string('provider_id')->unique()->default('NULL');            
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
