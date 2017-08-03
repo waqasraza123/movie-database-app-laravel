@@ -25,7 +25,7 @@ Route::get('/dashboard', function () {
     return view('dashboard.dashboard');
 });
 //route for logout
-Route::get('/logout','Auth\LoginController@logout');
+Route::get('/logout','Auth\LoginController@logout')->name('logout');
 
 //restricting the following routes to admin user only
 Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
