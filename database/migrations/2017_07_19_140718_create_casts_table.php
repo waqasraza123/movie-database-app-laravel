@@ -17,7 +17,6 @@ class CreateCastsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('person_id');
             $table->unsignedInteger('movie_id');
-            $table->string('known_for');
             $table->string('character_name')->nullable();
             $table->integer('billing_position')->nullable();
             $table->softDeletes();

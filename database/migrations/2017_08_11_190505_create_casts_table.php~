@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCrewsTable extends Migration
+class CreateCastsTable extends Migration
 {
+    
     /**
      * Run the migrations.
      *
@@ -13,11 +14,13 @@ class CreateCrewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('crew_movies', function (Blueprint $table) {
+    
+        Schema::create('casts_movies', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('movie_id');
             $table->unsignedInteger('person_id');
-            $table->unsignedInteger('job_id');
+            $table->unsignedInteger('movie_id');           
+            $table->string('character_name')->nullable();
+            $table->integer('billing_position')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +33,6 @@ class CreateCrewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('crew_movies');
+        Schema::dropIfExists('casts');
     }
 }

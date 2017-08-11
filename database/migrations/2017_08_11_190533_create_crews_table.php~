@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCrewsTable extends Migration
 {
-    /**
+   /**
      * Run the migrations.
      *
      * @return void
@@ -16,7 +16,7 @@ class CreateCrewsTable extends Migration
         Schema::create('crew_movies', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('movie_id');
-            $table->unsignedInteger('person_id');
+            $table->unsignedInteger('person_id');            
             $table->unsignedInteger('job_id');
             $table->softDeletes();
             $table->timestamps();
