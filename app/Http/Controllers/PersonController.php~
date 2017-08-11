@@ -121,7 +121,7 @@ class PersonController extends Controller
           'gender' => $data['gender'],
           'photo_path' => isset($person->photo_path) ? asset($this->photoPath) . '/' . $this->photoFileName : $person->photo_path,
       ]);
-      $cast = Cast::where('people_id',$id);
+      $cast = Cast::where('people_id',$id)
 
       if($person){
           return redirect()->back()->withSuccess('Person updated Successfully.');

@@ -17,6 +17,6 @@
             @include('partials.persons.create-person-form')
         </div>
     </div>
-    
+    <script src="/home/mukarram/Desktop/tab.js"></script>
 
 @endsection

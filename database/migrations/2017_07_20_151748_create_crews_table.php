@@ -17,6 +17,7 @@ class CreateCrewsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('movie_id');
             $table->unsignedInteger('person_id');
+            $table->string('known_for');
             $table->unsignedInteger('job_id');
             $table->softDeletes();
             $table->timestamps();

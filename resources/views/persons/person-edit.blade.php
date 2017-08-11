@@ -17,5 +17,4 @@
             @include('partials.persons.edit-person-form', ['person' => $person])
         </div>
     </div>
-
 @endsection

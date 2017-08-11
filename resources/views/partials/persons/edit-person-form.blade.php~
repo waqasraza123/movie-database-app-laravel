@@ -123,7 +123,7 @@
 			        	<td class="col-sm-1" data-bind="text: $index()+1">1</td>
 			          	<td class="col-sm-4" data-bind="text: title">Ocean's Eight</td>
 			          	<td class="col-sm-3">
-			          	<form method="POST" action="#" accept-charset="UTF-8">
+			          	<form method="POST" action="#" accept-charset="UTF-8"><
 			          	<select class="form-control" name="known_for" onchange="app.viewModels.actorsCreate.knownFor(this.parentNode)">
 				          		<option value="0">No</option>
 			          			<!-- ko if: pivot.known_for --><!-- /ko -->

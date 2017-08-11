@@ -15,7 +15,7 @@ class CreateCastsTable extends Migration
     {
         Schema::create('casts_movies', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('person_id');
+            $table->unsignedInteger('people_id');
             $table->unsignedInteger('movie_id');
             $table->string('known_for');
             $table->string('character_name')->nullable();
