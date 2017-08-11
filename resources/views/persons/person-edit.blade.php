@@ -14,7 +14,7 @@
         <div class="col-sm-8 col-sm-offset-2">
             @include('partials.errors.error')
             @include('partials.errors.success')
-            @include('partials.persons.edit-person-form', ['person' => $person])
+            @include('partials.persons.edit-person-form', ['person' => $person,'filmography'=>$filmography])
         </div>
     </div>
 @endsection

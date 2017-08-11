@@ -5,7 +5,7 @@
 <div class="box box-success">
     <div class="box-header with-border">
     	<div class="row">
-    		<div class="col-sm-5 col-sm-push-1 btn btn-success active" id="id-btn-details" onclick="">
+    		<div class="col-sm-5 col-sm-push-1 btn btn-success active" id="id-btn-details">
     			<center>
     			<h3 class="box-title active">Details</h3>
     			</center>
@@ -119,9 +119,12 @@
 			        	</tr>
 			      	</thead>
 			      <tbody data-bind="foreach: vars.filmo">
+			      @for($i = 1;$i<=1;$i++)
+			      @foreach($filmography as $film)
+			      	
 			        <tr>
-			        	<td class="col-sm-1" data-bind="text: $index()+1">1</td>
-			          	<td class="col-sm-4" data-bind="text: title">Ocean's Eight</td>
+			        	<td class="col-sm-1">{{$i}}</td>
+			          	<td class="col-sm-4" data-bind="text: title">{{$film->title}}</td>
 			          	<td class="col-sm-3">
 			          	<form method="POST" action="#" accept-charset="UTF-8">
 			          	<select class="form-control" name="known_for" onchange="app.viewModels.actorsCreate.knownFor(this.parentNode)">
@@ -131,47 +134,12 @@
 			          			<option value="1" selected="selected">Yes</option>
 			          			<!-- /ko -->
 				          	</select>
-				          	<input name="title_id" data-bind="attr: { value: id }" value="5508823" type="hidden">
-				          	<input name="actor_id" data-bind="attr: { value: vars.actor.id }" value="282" type="hidden">
 			          	</form>			          	</td>
-			          	<td class="col-sm-2" data-bind="text: year">2018</td>
+			          	<td class="col-sm-2" data-bind="text: year">{{$film->year}}</td>
 			        </tr>
-			      
-			        <tr>
-			        	<td class="col-sm-1" data-bind="text: $index()+1">2</td>
-			          	<td class="col-sm-4" data-bind="text: title">Downsizing</td>
-			          	<td class="col-sm-3">
-			          	<form method="POST" action="#" accept-charset="UTF-8"><input name="_token" value="rS8zQMkpefiDnL4VKUyrn86gCc6mPJr1MK96TKo2" type="hidden">				          	<select class="form-control" name="known_for" onchange="app.viewModels.actorsCreate.knownFor(this.parentNode)">
-				          		<option value="0" selected="selected">No</option>
-			          			<!-- ko if: pivot.known_for --><!-- /ko -->
-			          			<!-- ko ifnot: pivot.known_for -->
-			          			<option value="1">Yes</option>
-			          			<!-- /ko -->
-				          	</select>
-				          	<input name="title_id" data-bind="attr: { value: id }" value="5203" type="hidden">
-				          	<input name="actor_id" data-bind="attr: { value: vars.actor.id }" value="282" type="hidden">
-			          	</form>			          	</td>
-			          	<td class="col-sm-2" data-bind="text: year">2017</td>
-			    
-			        </tr>
-			      
-			        <tr>
-			        	<td class="col-sm-1" data-bind="text: $index()+1">3</td>
-			          	<td class="col-sm-4" data-bind="text: title">Suburbicon</td>
-			          	<td class="col-sm-3">
-			          	<form method="POST" action="#" accept-charset="UTF-8"><input name="_token" value="rS8zQMkpefiDnL4VKUyrn86gCc6mPJr1MK96TKo2" type="hidden">				          	<select class="form-control" name="known_for" onchange="app.viewModels.actorsCreate.knownFor(this.parentNode)">
-				          		<option value="0" selected="selected">No</option>
-			          			<!-- ko if: pivot.known_for --><!-- /ko -->
-			          			<!-- ko ifnot: pivot.known_for -->
-			          			<option value="1">Yes</option>
-			          			<!-- /ko -->
-				          	</select>
-				          	<input name="title_id" data-bind="attr: { value: id }" value="6345617" type="hidden">
-				          	<input name="actor_id" data-bind="attr: { value: vars.actor.id }" value="282" type="hidden">
-			          	</form>			          	</td>
-			          	<td class="col-sm-2" data-bind="text: year">2017</td>
-			          	
-			        </tr>
+			      @endforeach
+			      @endfor
+			        
 			      
 			        
 			      

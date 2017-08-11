@@ -88,8 +88,20 @@ class PersonController extends Controller
   public function edit($id)
   {
       $person = Person::find($id);
-
-      return view('persons.person-edit', compact('person'));
+	  $castMovies = $person->castMovies;
+      $crewMovies = $person->crewMovies;
+      \Log::info('\ncastMovies: '.$castMovies);
+      \Log::info('\ncrewMovies: '.$crewMovies);
+      //$filmography = \DB::table('people')
+      //	->join('casts_movies','people.id','=','casts_movies.person_id')
+      //	->join('movies','casts_movies.movie_id','=','movies.id')
+      //	->select('movies.title','casts_movies.known_for','movies.release_date')
+      //	->get();
+      //$filmography = ['title'=>'flan','known_for'=>'no','year'=>'2017'];
+      	//$jsonFilmography = json_encode($filmography);
+      
+      \Log::info('\ninFography'.$filmography);
+      return view('persons.person-edit', compact('person','filmography'));
   }
 
   /**
@@ -121,7 +133,8 @@ class PersonController extends Controller
           'gender' => $data['gender'],
           'photo_path' => isset($person->photo_path) ? asset($this->photoPath) . '/' . $this->photoFileName : $person->photo_path,
       ]);
-      $cast = Cast::where('people_id',$id)
+      //$person1 = Person::where('id', $id)->first();
+      
 
       if($person){
           return redirect()->back()->withSuccess('Person updated Successfully.');
