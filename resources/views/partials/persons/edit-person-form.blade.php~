@@ -1,18 +1,11 @@
 {!! Form::model($person, ['class' => 'form-horizontal', 'files' => true,
             'id' => 'create-person-form', 'url' => route('person.update', ['person' => $person->id]), 'method' => 'patch']) !!}
 <!-- Horizontal Form -->
-<style>
-	.button-acitve{
-		text-decoration:underline;
-	}
-	#id-btn-details:hover{
-		background-color: gray;
-	}
-</style>
+
 <div class="box box-success">
     <div class="row" style="overflow:hidden;">
     	
-    		<div class="col-md-6   btn-success button-active" id="id-btn-details" style="height:100%;width:45%; border:none;padding:0;position:relative;cursor:hand;cursor:pointer;margin-left:3%;">
+    		<div class="col-md-6   btn-success active" id="id-btn-details" style="height:100%;width:45%; border:none;padding:0;position:relative;cursor:hand;cursor:pointer;margin-left:3%;">
     			<center>
     			<h3 class="box-title active">Details</h3>
     			</center>
@@ -112,7 +105,7 @@
 
     </div>
     <!-- /.box-body -->
-    <div class="box-body filmography">
+    <div class="box-body filmography" style="display:none;">
         <div class="tab-pane" id="filmo">
             	<table class="table table-striped table-centered">
 			    	<thead>
@@ -182,16 +175,16 @@
     	$(document).ready(function(){
         
     		$('#id-btn-details').click(function(){
-    			$('#id-btn-filmography').removeClass("button-active");
-    			$(this).addClass("button-active");
+    			$('#id-btn-filmography').removeClass("active");
+    			$(this).addClass("active");
     			$('.details').show();
     			$('.filmography').hide();
     			
     		});
     		$('#id-btn-filmography').click(function(){
-    			$('#id-btn-details').removeClass("button-active");
+    			$('#id-btn-details').removeClass("active");
     			
-    			$(this).addClass("button-active");
+    			$(this).addClass("active");
     			$('.details').hide();
     			$('.filmography').show();
     		});
