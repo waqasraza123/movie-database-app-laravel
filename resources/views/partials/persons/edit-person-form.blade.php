@@ -118,32 +118,27 @@
 			          		
 			        	</tr>
 			      	</thead>
-			      <tbody data-bind="foreach: vars.filmo">
-			      @for($i = 1;$i<=1;$i++)
-			      @foreach($filmography as $film)
-			      	
-			        <tr>
-			        	<td class="col-sm-1">{{$i}}</td>
-			          	<td class="col-sm-4" data-bind="text: title">{{$film->title}}</td>
-			          	<td class="col-sm-3">
-			          	<form method="POST" action="#" accept-charset="UTF-8">
-			          	<select class="form-control" name="known_for" onchange="app.viewModels.actorsCreate.knownFor(this.parentNode)">
-				          		<option value="0">No</option>
-			          			<!-- ko if: pivot.known_for --><!-- /ko -->
-			          			<!-- ko ifnot: pivot.known_for -->
-			          			<option value="1" selected="selected">Yes</option>
-			          			<!-- /ko -->
-				          	</select>
-			          	</form>			          	</td>
-			          	<td class="col-sm-2" data-bind="text: year">{{$film->year}}</td>
-			        </tr>
-			      @endforeach
-			      @endfor
-			        
-			      
-			        
-			      
-			        
+    			    <tbody data-bind="foreach: vars.filmo">
+    			        @for($i = 1;$i<=1;$i++)
+        			        @foreach($filmography as $film)
+        			      	
+        			        <tr>
+        			        	<td class="col-sm-1">{{$i}}</td>
+        			          	<td class="col-sm-4" data-bind="text: title">{{$film->title}}</td>
+        			          	<td class="col-sm-3">
+        			          	<form method="POST" action="#" accept-charset="UTF-8">
+        			          	<select class="form-control" name="known_for" onchange="app.viewModels.actorsCreate.knownFor(this.parentNode)">
+        				          		<option value="0">No</option>
+        			          			<!-- ko if: pivot.known_for --><!-- /ko -->
+        			          			<!-- ko ifnot: pivot.known_for -->
+        			          			<option value="1" selected="selected">Yes</option>
+        			          			<!-- /ko -->
+        				          	</select>
+        			          	</form>			          	</td>
+        			          	<td class="col-sm-2" data-bind="text: year">{{isset($film->year) ? $film->year : NULL}}</td>
+        			        </tr>
+        			        @endforeach
+    			        @endfor		        
 			      
 			        
 			      </tbody>
@@ -169,6 +164,7 @@
     <!--<link rel="stylesheet" href="{{asset('/css/tab-style.css')}}">-->
     <script type="text/javascript">
     	$(document).ready(function(){
+        
     		$('#id-btn-details').click(function(){
     			$('#id-btn-filmography').removeClass("active");
     			$('#id-btn-filmography').addClass("active");

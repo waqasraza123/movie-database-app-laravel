@@ -99,7 +99,6 @@ class PersonController extends Controller
       	->get();
       //$filmography = ['title'=>'flan','known_for'=>'no','year'=>'2017'];
       	//$jsonFilmography = json_encode($filmography);
-      dd($filmography);
       \Log::info('\ninFography'.$filmography);
       return view('persons.person-edit', compact('person','filmography'));
   }
