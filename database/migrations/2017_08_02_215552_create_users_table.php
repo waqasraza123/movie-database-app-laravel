@@ -15,11 +15,18 @@ class CreateUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
 
+            $table->increments('id');
+            $table->string('name');
+            $table->string('email', 50)->unique();
+            $table->string('password');
             //by default type = 1 means customers
             // type = 0 means admins
             $table->string('type')->default('1');
             $table->string('provider')->default('NULL');
             $table->string('provider_id')->unique()->default('NULL');
+            $table->softDeletes();
+            $table->rememberToken();
+            $table->timestamps();
         });
     }
 
