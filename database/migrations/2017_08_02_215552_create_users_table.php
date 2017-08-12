@@ -13,19 +13,13 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('email', 50)->nullable();
-            $table->string('password')->nullable();
+        Schema::table('users', function (Blueprint $table) {
+
             //by default type = 1 means customers
             // type = 0 means admins
             $table->string('type')->default('1');
             $table->string('provider')->default('NULL');
-            $table->string('provider_id')->unique()->default('NULL');            
-            $table->softDeletes();
-            $table->rememberToken();
-            $table->timestamps();
+            $table->string('provider_id')->unique()->default('NULL');
         });
     }
 
