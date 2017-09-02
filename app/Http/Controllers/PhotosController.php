@@ -148,6 +148,12 @@ class PhotosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $photo = Photo::find($id);
+        MoviePhoto::where('id', $id)->delete();
+        $photo->people()->sync([]);
+        $photo->untag();
+        $photo->delete();
+
+        return redirect()->back()->withSuccess('Photo has been Deleted!');
     }
 }
