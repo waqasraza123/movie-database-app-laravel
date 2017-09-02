@@ -39,7 +39,7 @@ class Movie extends Model
     }
     public function photos()
     {
-        return $this->hasMany(MoviePhotos::class, 'movie_id', 'id');
+        return $this->hasMany(Photo::class, 'movie_id', 'id');
     }
 
     public function languages()

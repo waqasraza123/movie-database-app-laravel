@@ -31,9 +31,9 @@ Route::get('/logout','Auth\LoginController@logout')->name('logout');
 Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 {
     Route::resource('movies', 'MoviesController');
-	Route::post('/movies/add-photos', 'PhotosController@store')->name('movies.photos.add');
-	Route::post('/movies/add-videos', 'VideoController@store')->name('movies.videos.add');
-
+	/*Route::post('/movies/add-photos', 'PhotosController@store')->name('movies.photos.add');
+	Route::post('/movies/add-videos', 'VideoController@store')->name('movies.videos.add');*/
+    Route::resource('photos', 'PhotosController');
 	Route::resource('person', 'PersonController');
 	Route::resource('cast', 'CastController');
 	Route::resource('crew', 'CrewController');

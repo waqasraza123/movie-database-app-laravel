@@ -20,6 +20,8 @@ $(function(){
     var createJobsForm = $("#create-jobs-form")
     var crewJobs = $("#job-id")
     var addVideosForm = $("#add-videos-form")
+    var photoTags = $("#photo-tags")
+    var createPhotosForm = $("#add-photos-form")
 
     /**
      * custom work
@@ -53,6 +55,47 @@ $(function(){
     if(crewJobs.length){
         crewJobs.select2({
             placeholder: 'Select Job'
+        })
+    }
+    if(photoTags.length){
+        photoTags.select2({
+            tags: true,
+            createTag: function (params) {
+                var term = $.trim(params.term);
+                var count = 0
+                var existsVar = false;
+                if($('#photo-tags option').length > 0){
+                    $('#photo-tags option').each(function(){
+                        if ($(this).text().toUpperCase() == term.toUpperCase()) {
+                            existsVar = true
+                            return false;
+                        }else{
+                            existsVar = false
+                        }
+                    });
+                    if(existsVar){
+                        return null;
+                    }
+                    return {
+                        id: params.term,
+                        text: params.term,
+                        newTag: true
+                    }
+                }else{
+                    return {
+                        id: params.term,
+                        text: params.term,
+                        newTag: true
+                    }
+                }
+            },
+            maximumInputLength: 20, // only allow terms up to 20 characters long
+            closeOnSelect: true
+        })
+    }
+    if($("#actors").length){
+        $("#actors").select2({
+            placeholder: 'Select Actors'
         })
     }
     if(keywords.length){
@@ -184,6 +227,9 @@ $(function(){
     }
     if(createJobsForm.length){
         createJobsForm.validate();
+    }
+    if(createPhotosForm.length){
+        createPhotosForm.validate();
     }
     if(createMovieForm.length){
         createMovieForm.validate({
