@@ -6,8 +6,8 @@
             <div class="modal-header">
                 <h4 class="modal-title">Add Photos</h4>
             </div>
-            <div class="modal-body" id="dropzone-photos">
-                {!! Form::open(['class' => 'dropzone',
+            <div class="modal-body" id="">
+                {!! Form::open(['class' => '',
         'id' => 'add-photos-form', 'url' => route('movies.photos.add')]) !!}
                     <div class="fallback">
                         <input type="file" name="file" multiple/>

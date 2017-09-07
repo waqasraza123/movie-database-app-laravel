@@ -14,15 +14,7 @@
                 </div>
 
                 <div class="box-body">
-                    <img src="" id="image-src">
-                    <div class="form-group">
-                        <label for="movie_id" class="col-sm-2 control-label">Photo</label>
-
-                        <div class="col-sm-10">
-                            {!! Form::file('photo', ['class' => 'form-control', 'id' => 'photo',
-                            'required' => true, 'onchange' => 'showImage()']) !!}
-                        </div>
-                    </div>
+                    <div id="dropzone-photos" class="dropzone"></div><br>
                     <div class="form-group">
                         <label for="tags" class="col-sm-2 control-label">Tags</label>
 
@@ -39,6 +31,7 @@
                             'required' => true]) !!}
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label for="tags" class="col-sm-2 control-label">Tag Actors</label>
 
@@ -50,7 +43,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-success pull-right">Create</button>
+                    <button type="submit" class="btn btn-success pull-right add-photos-button">Create</button>
                 </div>
                 <!-- /.box-footer -->
             </div>
@@ -61,20 +54,6 @@
 
 @endsection
 @section('footer')
-<script>
-    //show image if selected
-    function showImage() {
-        var src = document.getElementById("photo");
-        var target = document.getElementById("image-target");
-        var fr=new FileReader();
-        // when image is loaded, set the src of the image where you want to display it
-        fr.onload = function(e) { target.src = this.result; };
-        src.addEventListener("change",function() {
-            // fill fr with image data
-            fr.readAsDataURL(src.files[0]);
-        });
-    }
-</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script src="{{asset('/lte/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
 <script src="{{asset('/lte/plugins/iCheck/icheck.min.js')}}"></script>

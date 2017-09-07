@@ -293,16 +293,47 @@ $(function(){
         $("div").removeClass("mfp-bg")
     })
 
-    Dropzone.autoDiscover = true;
-    Dropzone.options.addPhotosForm = {
+    var myDropzone = Dropzone.options.dropzonePhotos = {
         paramName: "file", // The name that will be used to transfer the file
-        maxFilesize: 2, // MB
+        maxFilesize: 5, // MB
         uploadMultiple: true,
+        autoProcessQueue: false,
+        headers: {
+            'x-csrf-token': document.querySelectorAll('meta[name=csrf-token]')[0].getAttributeNode('content').value,
+        },
         acceptedFiles: 'image/*',
-        params: {'movie-id': $("#movie-id").val()},
+        params: {movie_id: $('#movie').val(), tags: $("#photo-tags").select2('val'), actors: $("#actors").select2('val')},
         addRemoveLinks: true,
-        url: '/movies/add-photos',
+        url: '/photos',
         parallelUploads: 10000,
-    };
+        init: function(file){
+            var self = this
+            this.on("addedfile", function(file) {
+                /* Maybe display some more file information on your page */
+                var unique_field_id = new Date().getTime();
 
+                file.caption = Dropzone.createElement("<input id='"+file.name+unique_field_id+"_title' type='text' name='title' placeholder='caption'>");
+                file.previewElement.appendChild(file.caption);
+            });
+            $(".add-photos-button").click(function(e){
+                e.preventDefault()
+                self.processQueue()
+            })
+            // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
+            // of the sending event because uploadMultiple is set to true.
+            this.on("sendingmultiple", function() {
+                // Gets triggered when the form is actually being sent.
+                // Hide the success button or the complete form.
+            });
+            this.on("successmultiple", function(files, response) {
+                // Gets triggered when the files have successfully been sent.
+                // Redirect user or notify of success.
+            });
+            this.on("errormultiple", function(files, response) {
+                // Gets triggered when there was an error sending the files.
+                // Maybe show form again, and notify user of error
+            });
+        }
+
+    };
 })
