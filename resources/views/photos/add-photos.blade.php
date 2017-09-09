@@ -16,6 +16,15 @@
                 <div class="box-body">
                     <div id="dropzone-photos" class="dropzone"></div><br>
                     <div class="form-group">
+                        <label for="type" class="col-sm-2 control-label">Type</label>
+
+                        <div class="col-sm-10">
+                            {!! Form::select('type', ['Poster' => 'Poster', 'Still Frame' => 'Still Frame',
+                            'Behind the Scenes' => 'Behind the Scenes'], null, ['class' => 'form-control', 'id' => 'photo-type',
+                            'required' => true, 'multiple' => false]) !!}
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="tags" class="col-sm-2 control-label">Tags</label>
 
                         <div class="col-sm-10">

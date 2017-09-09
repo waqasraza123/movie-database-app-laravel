@@ -22,6 +22,7 @@ $(function(){
     var addVideosForm = $("#add-videos-form")
     var photoTags = $("#photo-tags")
     var createPhotosForm = $("#add-photos-form")
+    var photoType = $("#photo-type")
 
     /**
      * custom work
@@ -96,6 +97,11 @@ $(function(){
     if($("#actors").length){
         $("#actors").select2({
             placeholder: 'Select Actors'
+        })
+    }
+    if(photoType.length){
+        photoType.select2({
+            placeholder: 'Select Type'
         })
     }
     if(keywords.length){
@@ -293,6 +299,7 @@ $(function(){
         $("div").removeClass("mfp-bg")
     })
 
+    var formData = new FormData()
     var myDropzone = Dropzone.options.dropzonePhotos = {
         paramName: "file", // The name that will be used to transfer the file
         maxFilesize: 5, // MB
@@ -302,7 +309,9 @@ $(function(){
             'x-csrf-token': document.querySelectorAll('meta[name=csrf-token]')[0].getAttributeNode('content').value,
         },
         acceptedFiles: 'image/*',
-        params: {movie_id: $('#movie').val(), tags: $("#photo-tags").select2('val'), actors: $("#actors").select2('val')},
+        params: {
+            formData
+        },
         addRemoveLinks: true,
         url: '/photos',
         parallelUploads: 10000,
@@ -312,12 +321,19 @@ $(function(){
                 /* Maybe display some more file information on your page */
                 var unique_field_id = new Date().getTime();
 
-                file.caption = Dropzone.createElement("<input id='"+file.name+unique_field_id+"_title' type='text' name='title' placeholder='caption'>");
+                file.caption = Dropzone.createElement("<input id='"+file.name+unique_field_id+"_title' type='text' name='captions[]' placeholder='caption'>");
                 file.previewElement.appendChild(file.caption);
             });
             $(".add-photos-button").click(function(e){
                 e.preventDefault()
                 self.processQueue()
+            })
+            this.on('sending', function (file, xhr, formData) {
+                formData.append('movie_id', $('#movie').val())
+                formData.append('tags', $("#photo-tags").select2('val'))
+                formData.append('actors', $("#actors").select2('val'))
+                formData.append('captions', $("input[name='captions\\[\\]']").map(function(){return $(this).val();}).get())
+                formData.append('photoType', $("#photo-type").select2('val'))
             })
             // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
             // of the sending event because uploadMultiple is set to true.

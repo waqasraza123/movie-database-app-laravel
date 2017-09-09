@@ -45,9 +45,9 @@ class PhotosController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        foreach ($data['file'] as $index => $FILE){
 
-        if(isset($data['photo'])){
-            $f = $data['photo'];
+            $f = $FILE;
 
             $extention = $f->getClientOriginalExtension();
             $fileName = preg_replace("/\\s/", "_", $f->getClientOriginalName());
@@ -57,7 +57,9 @@ class PhotosController extends Controller
 
             if($moved){
                 $photo = Photo::create([
-                    'photo' => asset($destinationPath) . '/' . $fileName
+                    'photo' => asset($destinationPath) . '/' . $fileName,
+                    'type' => $data['photoType'],
+                    'caption' => $data['captions'][$index]
                 ]);
             }
             if($photo){
@@ -68,12 +70,9 @@ class PhotosController extends Controller
                     'photo_id' => $photo->id
                 ]);
                 $photo->people()->sync($data['actors']);
-                return redirect()->back()->withSuccess('Photo created Successfully');
             }
         }
-
         return redirect()->back()->withErrors('Unable to save Photo.');
-
     }
 
     /**
