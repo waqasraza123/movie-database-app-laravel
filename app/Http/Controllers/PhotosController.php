@@ -54,25 +54,33 @@ class PhotosController extends Controller
             //Move Uploaded File
             $destinationPath = 'uploads/' . '/photos';
             $moved = $f->move($destinationPath, $fileName);
+            if(isset($data['captions']) && $data['captions'] != ','){
+                $caption = explode(",", $data['captions'])[$index];
+            }
 
             if($moved){
                 $photo = Photo::create([
                     'photo' => asset($destinationPath) . '/' . $fileName,
                     'type' => $data['photoType'],
-                    'caption' => $data['captions'][$index]
+                    'caption' => isset($caption) ? $caption : null
                 ]);
             }
             if($photo){
-                if(isset($data['tags']))
+                if(isset($data['movie_id'])){
+                    DB::table('movie_photos')->insert([
+                        'movie_id' => $data['movie_id'],
+                        'photo_id' => $photo->id
+                    ]);
+                }
+                if(isset($data['tags'])){
                     $photo->tag($data['tags']);
-                DB::table('movie_photos')->insert([
-                    'movie_id' => $data['movie_id'],
-                    'photo_id' => $photo->id
-                ]);
-                $photo->people()->sync($data['actors']);
+                }
+                if(!empty($data['actors']) && count($data['actors']) > 0 && $data['actors'] != "null"){
+                    $photo->people()->sync($data['actors']);
+                }
             }
         }
-        return redirect()->back()->withErrors('Unable to save Photo.');
+        return redirect()->back()->withSuccess('Photo saved Successfully.');
     }
 
     /**
