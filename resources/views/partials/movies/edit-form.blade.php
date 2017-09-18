@@ -136,7 +136,7 @@
     </div>
     <!-- /.box-body -->
     <div class="box-footer">
-        <button type="submit" {{--:disabled="form.errors.any()"--}} class="btn btn-success pull-right">Update</button>
+        <button type="submit" class="btn btn-success pull-right">Update</button>
     </div>
     <!-- /.box-footer -->
 </div>

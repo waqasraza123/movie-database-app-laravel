@@ -93,11 +93,11 @@ class PhotosController extends Controller
     {
         $p = Photo::find($id);
         $movies = Movie::pluck('title', 'id')->toArray();
+        $keywords = DB::table('tagging_tags')->pluck('name', 'name');
+        $actors = Person::pluck('name', 'id')->toArray();
         $movieSelected = DB::table('movie_photos')->where('photo_id', $id)
             ->join('movies', 'movies.id', '=', 'movie_photos.movie_id')->pluck('movies.id')->toArray();
-        $actors = Person::pluck('name', 'id')->toArray();
         $actorsSelected = $p->people()->pluck('people.id')->toArray();
-        $keywords = DB::table('tagging_tags')->pluck('name', 'name');
         $keywordsSelect = DB::table('tagging_tagged')->where([
             'taggable_type' => 'App\Photo',
             'taggable_id' => $id

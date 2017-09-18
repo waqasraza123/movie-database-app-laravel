@@ -25,7 +25,7 @@
         <!-- /.tab-pane -->
         <!-- /.tab-pane -->
         <div class="tab-pane" id="photos">
-            @include('partials.movies.photos.show')
+            {{--@include('partials.movies.photos.show')--}}
         </div>
         <!-- /.tab-pane -->
         <!-- /.tab-pane -->

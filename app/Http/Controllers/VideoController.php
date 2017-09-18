@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Movie;
+use App\Person;
 use App\Video;
+use App\Keyword;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class VideoController extends Controller
 {
@@ -15,7 +19,8 @@ class VideoController extends Controller
    */
   public function index()
   {
-    
+      $videos = Video::all();
+      return view('videos.index-videos', compact('videos'));
   }
 
   /**
@@ -25,7 +30,10 @@ class VideoController extends Controller
    */
   public function create()
   {
-    
+      $movies = Movie::pluck('title', 'id')->toArray();
+      $actors = Person::pluck('name', 'id')->toArray();
+      $keywords = DB::table('tagging_tags')->pluck('name', 'name');
+      return view('videos.add-videos', compact('movies', 'actors', 'keywords'));
   }
 
   /**
@@ -36,14 +44,41 @@ class VideoController extends Controller
   public function store(Request $request)
   {
       $data = $request->all();
-      Video::create([
+      $destinationPath = 'uploads/videos';
+      $fileName = null;
+      if(isset($data['thumb'])){
+          $file = $data['thumb'];
+
+          //Display File Name
+          $extention = $file->getClientOriginalExtension();
+          $fileName = preg_replace("/\\s/", "_", $file->getClientOriginalName());
+          //Move Uploaded File
+          $file->move($destinationPath, $fileName);
+      }
+
+      $video = Video::create([
           'title' => $data['title'],
           'video_url' => $data['video_url'],
           'video_embed' => $data['video_embed'],
           'quality' => $data['quality'],
           'type' => $data['type'],
-          'movie_id' => $data['movie_id']
+          'movie_id' => $data['movie_id'],
+          'thumb' => $destinationPath . '/' . $fileName
       ]);
+
+      if($video){
+          if(isset($data['keywords'])){
+              $video->tag($data['keywords']);
+          }
+          if(!empty($data['actors']) && count($data['actors']) > 0 && $data['actors'] != "null"){
+              $video->people()->sync($data['actors']);
+          }
+          return redirect()->back()->withSuccess('Video Uploaded Successfully');
+      }
+      else{
+          return redirect()->back()->withErrors('Video Could not Upload.');
+      }
+
   }
 
   /**
@@ -65,7 +100,18 @@ class VideoController extends Controller
    */
   public function edit($id)
   {
-    
+      $video = Video::find($id);
+      $movies = Movie::pluck('title', 'id')->toArray();
+      $actors = Person::pluck('name', 'id')->toArray();
+      $keywords = DB::table('tagging_tags')->pluck('name', 'name');
+      $actorsSelected = $video->people()->pluck('people.id')->toArray();
+      $keywordsSelect = DB::table('tagging_tagged')->where([
+          'taggable_type' => 'App\Video',
+          'taggable_id' => $id
+      ])
+          ->pluck('tag_name', 'tag_name');
+      return view('videos.edit-video', compact('video', 'movies', 'actors', 'keywords', 'actorsSelected',
+          'keywordsSelect'));
   }
 
   /**
@@ -74,9 +120,43 @@ class VideoController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update(Request $request, $id)
   {
-    
+      $data = $request->all();
+      $destinationPath = 'uploads/videos';
+      $fileName = null;
+      if(isset($data['thumb'])){
+          $file = $data['thumb'];
+
+          //Display File Name
+          $extention = $file->getClientOriginalExtension();
+          $fileName = preg_replace("/\\s/", "_", $file->getClientOriginalName());
+          //Move Uploaded File
+          $file->move($destinationPath, $fileName);
+      }
+      $thumb = Video::where('id', $id)->first()->thumb;
+      $video = Video::where('id', $id)->update([
+          'title' => $data['title'],
+          'video_url' => $data['video_url'],
+          'video_embed' => $data['video_embed'],
+          'quality' => $data['quality'],
+          'type' => $data['type'],
+          'movie_id' => $data['movie_id'],
+          'thumb' => isset($fileName) ? $destinationPath . '/' . $fileName : $thumb
+      ]);
+      $video = Video::find($id);
+      if($video){
+          if(isset($data['keywords'])){
+              $video->retag($data['keywords']);
+          }
+          if(!empty($data['actors']) && count($data['actors']) > 0 && $data['actors'] != "null"){
+              $video->people()->sync($data['actors']);
+          }
+          return redirect()->back()->withSuccess('Video Updated Successfully');
+      }
+      else{
+          return redirect()->back()->withErrors('Video Could not be Updated.');
+      }
   }
 
   /**
@@ -87,7 +167,12 @@ class VideoController extends Controller
    */
   public function destroy($id)
   {
-    
+      $video = Video::find($id);
+      $video->people()->sync([]);
+      $video->untag();
+      $video->delete();
+
+      return redirect()->back()->withSuccess('Video has been Deleted!');
   }
   
 }

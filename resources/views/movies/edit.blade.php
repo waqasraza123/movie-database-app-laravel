@@ -87,5 +87,5 @@
 
         </div>
     </div>
-    @include('partials.movies.photos.add')
+    {{--@include('partials.movies.photos.add')--}}
 @endsection

@@ -113,7 +113,6 @@ class MoviesController extends Controller
         $persons = Person::pluck('name', 'id');
         $jobs = Job::pluck('name', 'id');
         $movies = Movie::pluck('title', 'id');
-        $photos = $movie->photos;
         $cast = $movie->cast;
         $crew = $movie->crew;
         $videos = $movie->videos;

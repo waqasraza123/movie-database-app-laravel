@@ -20,9 +20,11 @@ $(function(){
     var createJobsForm = $("#create-jobs-form")
     var crewJobs = $("#job-id")
     var addVideosForm = $("#add-videos-form")
+    var editVideosForm = $("#add-videos-form")
     var photoTags = $("#photo-tags")
     var createPhotosForm = $("#add-photos-form")
     var photoType = $("#photo-type")
+    var movieId = $("#movie-id")
 
     /**
      * custom work
@@ -49,6 +51,11 @@ $(function(){
     }
     if(genre.length){
         genre.select2()
+    }
+    if(movieId.length){
+        movieId.select2({
+            placehoder: 'Select a Movie'
+        })
     }
     if(ageRating.length){
         ageRating.select2()
@@ -187,6 +194,9 @@ $(function(){
                 return false;
             }
         })
+    }
+    if(editVideosForm.length){
+        editVideosForm.validate()
     }
     if(createPersonForm.length){
         createPersonForm.validate();

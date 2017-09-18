@@ -90,7 +90,18 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{route('photos.index')}}"><i class="fa fa-circle-o"></i> View All</a></li>
-                    <li><a href="{{route('photos.create')}}"><i class="fa fa-circle-o"></i> Add New</a></li>
+                    <li><a href="{{route('photos.create')}}"><i class="fa fa-edit"></i> Add New</a></li>
+                </ul>
+            </li>
+            <li class="active treeview">
+                <a href="#"><i class="fa fa-video-camera"></i> Videos
+                    <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{route('video.index')}}"><i class="fa fa-circle-o"></i> View All</a></li>
+                    <li><a href="{{route('video.create')}}"><i class="fa fa-edit"></i> Add New</a></li>
                 </ul>
             </li>
         </ul>
