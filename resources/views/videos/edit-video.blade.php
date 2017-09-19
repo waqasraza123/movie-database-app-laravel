@@ -56,14 +56,15 @@
                             'required' => true, 'multiple' => true]) !!}
                         </div>
                     </div>
+
                     <div class="form-group">
-                        <label for="type" class="col-sm-2 control-label">Select Keywords</label>
+                        <label for="text" class="col-sm-2 control-label">Text</label>
 
                         <div class="col-sm-10">
-                            {!! Form::select('keywords', $keywords, $keywordsSelect, ['class' => 'form-control', 'id' => 'keywords',
-                            'required' => true, 'multiple' => true]) !!}
+                            {!! Form::textarea('text', null, ['class' => 'form-control', 'id' => 'text']) !!}
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label for="quality" class="col-sm-2 control-label">Quality</label>
 

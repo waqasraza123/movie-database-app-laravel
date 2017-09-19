@@ -32,8 +32,7 @@ class VideoController extends Controller
   {
       $movies = Movie::pluck('title', 'id')->toArray();
       $actors = Person::pluck('name', 'id')->toArray();
-      $keywords = DB::table('tagging_tags')->pluck('name', 'name');
-      return view('videos.add-videos', compact('movies', 'actors', 'keywords'));
+      return view('videos.add-videos', compact('movies', 'actors'));
   }
 
   /**
@@ -63,13 +62,11 @@ class VideoController extends Controller
           'quality' => $data['quality'],
           'type' => $data['type'],
           'movie_id' => $data['movie_id'],
+          'text' => $data['text'],
           'thumb' => $destinationPath . '/' . $fileName
       ]);
 
       if($video){
-          if(isset($data['keywords'])){
-              $video->tag($data['keywords']);
-          }
           if(!empty($data['actors']) && count($data['actors']) > 0 && $data['actors'] != "null"){
               $video->people()->sync($data['actors']);
           }
@@ -103,15 +100,9 @@ class VideoController extends Controller
       $video = Video::find($id);
       $movies = Movie::pluck('title', 'id')->toArray();
       $actors = Person::pluck('name', 'id')->toArray();
-      $keywords = DB::table('tagging_tags')->pluck('name', 'name');
       $actorsSelected = $video->people()->pluck('people.id')->toArray();
-      $keywordsSelect = DB::table('tagging_tagged')->where([
-          'taggable_type' => 'App\Video',
-          'taggable_id' => $id
-      ])
-          ->pluck('tag_name', 'tag_name');
-      return view('videos.edit-video', compact('video', 'movies', 'actors', 'keywords', 'actorsSelected',
-          'keywordsSelect'));
+
+      return view('videos.edit-video', compact('video', 'movies', 'actors', 'actorsSelected'));
   }
 
   /**
@@ -142,13 +133,11 @@ class VideoController extends Controller
           'quality' => $data['quality'],
           'type' => $data['type'],
           'movie_id' => $data['movie_id'],
+          'text' => $data['text'],
           'thumb' => isset($fileName) ? $destinationPath . '/' . $fileName : $thumb
       ]);
       $video = Video::find($id);
       if($video){
-          if(isset($data['keywords'])){
-              $video->retag($data['keywords']);
-          }
           if(!empty($data['actors']) && count($data['actors']) > 0 && $data['actors'] != "null"){
               $video->people()->sync($data['actors']);
           }
@@ -169,12 +158,9 @@ class VideoController extends Controller
   {
       $video = Video::find($id);
       $video->people()->sync([]);
-      $video->untag();
       $video->delete();
 
       return redirect()->back()->withSuccess('Video has been Deleted!');
   }
   
 }
-
-?>
