@@ -50,7 +50,7 @@ class PersonController extends Controller
 
       $person = Person::create([
           'name' => $data['name'],
-          'nickname' => $data['nickname'],
+          'birthname' => $data['nickname'],
           'birth_date' => $data['birth_date'],
           'birth_place' => $data['birth_place'],
           'official_site' => $data['official_site'],
@@ -123,7 +123,7 @@ class PersonController extends Controller
       $this->saveImage($data);
       $person = Person::where('id', $id)->update([
           'name' => $data['name'],
-          'nickname' => $data['nickname'],
+          'birthname' => $data['nickname'],
           'birth_date' => $data['birth_date'],
           'birth_place' => $data['birth_place'],
           'official_site' => $data['official_site'],
@@ -196,7 +196,7 @@ class PersonController extends Controller
 
         $person = Person::create([
             'name' => $data['name'],
-            'nickname' => $data['nickname'],
+            'birthname' => $data['nickname'],
             'birth_date' => $data['birth_date'],
             'birth_place' => $data['birth_place'],
             'official_site' => $data['official_site'],
