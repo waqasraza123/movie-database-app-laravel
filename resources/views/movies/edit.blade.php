@@ -69,23 +69,5 @@
 
         </div>
     </div>
-    <div class="modal fade" id="videos-modal" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Add Video</h4>
-                </div>
-                <div class="modal-body">
-                    {!! Form::open(['class' => 'form-horizontal', 'files' => true,
-            'id' => 'add-videos-form', 'url' => route('movies.videos.add'), 'method' => 'post']) !!}
-                        @include('partials.movies.videos.videos-add')
-                    {!! Form::close() !!}
-                </div>
-            </div>
-
-        </div>
-    </div>
     {{--@include('partials.movies.photos.add')--}}
 @endsection

@@ -134,12 +134,6 @@ class PersonController extends Controller
           'gender' => $data['gender'],
           'photo_path' => isset($person->photo_path) ? asset($this->photoPath) . '/' . $this->photoFileName : $person->photo_path,
       ]);
-      //$person1 = Person::where('id', $id)->first();
-      //$castMovies = $person->castMovies;
-      //$crewMovies = $person->crewMovies;
-      //\Log::info('known_for: '.print_r($data['known_for'],true));
-      //\Log::info('movie_id: '.print_r($request->get('movie_id'),true));
-      
       
       //update casts_movies table
       $movieIdArray = $request->get('movie_id');

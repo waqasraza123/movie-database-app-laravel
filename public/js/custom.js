@@ -111,6 +111,11 @@ $(function(){
             placeholder: 'Select Type'
         })
     }
+    if($("#post-status").length){
+        $("#post-status").select2({
+            placeholder: "Post Status"
+        })
+    }
     if(keywords.length){
         keywords.select2({
             tags: true,
@@ -359,7 +364,7 @@ $(function(){
                     'Photos Saved Successfully!',
                     'success'
                 )
-                //location.reload();
+                location.reload();
             });
             this.on("errormultiple", function(files, response) {
                 // Gets triggered when there was an error sending the files.
@@ -368,5 +373,10 @@ $(function(){
         }
 
     };
+
+    //attach summernote content editor
+    if($("#post-body").length){
+        $("#post-body").summernote()
+    }
 
 })

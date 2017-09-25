@@ -47,6 +47,7 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 	Route::resource('studio', 'StudioController');
 	Route::resource('language', 'LanguageController');
 	Route::resource('languagemovie', 'LanguageMovieController');
+	Route::resource('posts', 'BlogController');
 	Route::get('/test', function(){
 		\Illuminate\Support\Facades\DB::table('age_ratings')->insert([
 		    ['age_rating' => 'G'],
