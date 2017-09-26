@@ -113,8 +113,7 @@
                 <ul class="treeview-menu">
                     <li><a href="{{route('posts.index')}}"><i class="fa fa-circle-o"></i> View All</a></li>
                     <li><a href="{{route('posts.create')}}"><i class="fa fa-edit"></i> Add New</a></li>
-                    <li><a href="{{route('posts.create')}}"><i class="fa fa-edit"></i> Categories</a></li>
-                    <li><a href="{{route('posts.create')}}"><i class="fa fa-edit"></i> Tags</a></li>
+                    <li><a href="{{route('categories.index')}}"><i class="fa fa-edit"></i> Categories</a></li>
                 </ul>
             </li>
         </ul>

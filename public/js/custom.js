@@ -376,7 +376,9 @@ $(function(){
 
     //attach summernote content editor
     if($("#post-body").length){
-        $("#post-body").summernote()
+        $("#post-body").summernote({
+            height: 250
+        })
     }
 
 })

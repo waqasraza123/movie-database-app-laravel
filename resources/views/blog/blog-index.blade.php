@@ -58,6 +58,7 @@
                         </div>
                         <!-- /.box-body -->
                     </div>
+                    {{$posts->links()}}
                 </div>
             </div>
         @endif

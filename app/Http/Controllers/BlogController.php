@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Post;
 use Conner\Tagging\Model\Tag;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(5);
 
         return view('blog.blog-index', compact('posts'));
     }
@@ -29,7 +30,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        $categories = Tag::inGroup('PostCategory')->get();
+        $categories = Category::pluck('name', 'id');
         $tags = DB::table('tagging_tags')->pluck('name', 'name');
         return view('blog.blog-create')->with([
             'tags' => $tags,
@@ -79,7 +80,7 @@ class BlogController extends Controller
                     $post->tag($data['tags']);
                 }
                 if(isset($data['categories'])){
-                    $post->tag($data['categories']);
+                    $post->categories()->sync($data['categories']);
                 }
 
                 return redirect()->back()->withSuccess('Post Created Successfully!');
@@ -113,8 +114,11 @@ class BlogController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
-        $categories = $tags = DB::table('tagging_tags')->pluck('name', 'name');
-        $tagsSelect = $keywordsSelect = DB::table('tagging_tagged')->where([
+        $tags = DB::table('tagging_tags')->pluck('name', 'name');
+        $categories = Category::pluck('name', 'id');
+
+        $keywordsSelect = $post->categories()->pluck('categories.id', 'name');
+        $tagsSelect = DB::table('tagging_tagged')->where([
             'taggable_type' => 'App\Post',
             'taggable_id' => $id
         ])
@@ -170,8 +174,14 @@ class BlogController extends Controller
             if(isset($data['tags'])){
                 $post->retag($data['tags']);
             }
+            else{
+                $post->untag();
+            }
             if(isset($data['categories'])){
-                $post->retag($data['categories']);
+                $post->categories()->sync($data['categories']);
+            }
+            else{
+                $post->categories()->sync([]);
             }
 
             return redirect()->back()->withSuccess('Post Updated Successfully!');
@@ -191,7 +201,7 @@ class BlogController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
-        $post->untag();
+        $post->categories()->sync([]);
         $post->delete();
         return redirect()->back()->withSuccess('Post Deleted Successfully');
     }

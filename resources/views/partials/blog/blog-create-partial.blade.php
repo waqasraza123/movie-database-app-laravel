@@ -45,7 +45,7 @@
 
             <div class="col-sm-10">
                 {!! Form::select('tags[]', $tags, null, ['class' => 'form-control', 'id' => 'photo-tags',
-                'required' => true, 'multiple' => true]) !!}
+                'required' => false, 'multiple' => true]) !!}
             </div>
         </div>
         <div class="form-group">
@@ -53,7 +53,7 @@
 
             <div class="col-sm-10">
                 {!! Form::select('categories[]', $categories, null, ['class' => 'form-control', 'id' => 'keywords',
-                'required' => true, 'multiple' => true]) !!}
+                'required' => false, 'multiple' => true]) !!}
             </div>
         </div>
     </div>

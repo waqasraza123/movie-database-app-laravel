@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Conner\Tagging\Model\Tagged;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -19,4 +20,9 @@ class Post extends Model
         'user_id',
         'slug'
     ];
+
+
+    public function categories(){
+        return $this->belongsToMany(Category::class, 'category_posts', 'post_id', 'category_id');
+    }
 }
