@@ -47,7 +47,8 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required'
+            'title' => 'required',
+            'image' => 'required'
         ]);
 
         $data = $request->all();
@@ -63,31 +64,27 @@ class BlogController extends Controller
             $moved = $f->move($destinationPath, $fileName);
         }
 
-        if($moved){
-            $post = Post::create([
-                'title' => $data['title'],
-                'body' => $data['body'],
-                'summary' => $data['summary'],
-                'image' => asset($destinationPath) . '/' . $fileName,
-                'is_draft' => $data['status'] == 0 ? true : false,
-                'slug' => strtolower(preg_replace("/\\s/", "-", $data['title'])),
-                'user_id' => Auth::user()->id
-            ]);
 
-            if($post){
+        $post = Post::create([
+            'title' => $data['title'],
+            'body' => $data['body'],
+            'summary' => $data['summary'],
+            'image' => isset($fileName) ? asset($destinationPath) . '/' . $fileName : null,
+            'is_draft' => $data['status'] == 0 ? true : false,
+            'slug' => strtolower(preg_replace("/\\s/", "-", $data['title'])),
+            'user_id' => Auth::user()->id
+        ]);
 
-                if(isset($data['tags'])){
-                    $post->tag($data['tags']);
-                }
-                if(isset($data['categories'])){
-                    $post->categories()->sync($data['categories']);
-                }
+        if($post){
 
-                return redirect()->back()->withSuccess('Post Created Successfully!');
+            if(isset($data['tags'])){
+                $post->tag($data['tags']);
             }
-            else{
-                return redirect()->back()->withErrors('There were problems creating the Post!');
+            if(isset($data['categories'])){
+                $post->categories()->sync($data['categories']);
             }
+
+            return redirect()->back()->withSuccess('Post Created Successfully!');
         }
         else{
             return redirect()->back()->withErrors('There were problems creating the Post!');
