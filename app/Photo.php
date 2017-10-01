@@ -13,5 +13,4 @@ class Photo extends Model
     public function people(){
         return $this->belongsToMany(Person::class, 'people_photos', 'photo_id', 'person_id');
     }
-
 }

@@ -75,8 +75,10 @@ class PhotosController extends Controller
                 if(isset($data['tags'])){
                     $photo->tag($data['tags']);
                 }
-                if(!empty($data['actors']) && count($data['actors']) > 0 && $data['actors'] != "null"){
-                    $photo->people()->sync($data['actors']);
+                $arr = explode(',', $data['actors']);
+
+                if(isset($data['actors'])){
+                    $photo->people()->sync($arr);
                 }
             }
         }

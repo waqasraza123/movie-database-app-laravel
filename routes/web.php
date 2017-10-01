@@ -49,17 +49,6 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 	Route::resource('languagemovie', 'LanguageMovieController');
 	Route::resource('posts', 'BlogController');
 	Route::resource('categories', 'CategoryController');
-	Route::get('/test', function(){
-		\Illuminate\Support\Facades\DB::table('age_ratings')->insert([
-		    ['age_rating' => 'G'],
-		    ['age_rating' => 'PG'],
-		    ['age_rating' => 'PG-13'],
-		    ['age_rating' => 'R'],
-		    ['age_rating' => 'NR'],
-		    ['age_rating' => 'NC-17']
-		]);
-	});
-
 });
 
 
@@ -74,7 +63,10 @@ Route::get('/login/auth/{provider}/callback', 'Auth\LoginController@handleProvid
 //routes for registers
 Route::get('/register/auth/{provider}', 'Auth\RegisterController@redirectToProvider');
 Route::get('/register/auth/{provider}/callback', 'Auth\RegisterController@handleProviderCallback');
-
+Route::get('/test', function(){
+    $photo = \App\Photo::first();
+    $photo->people()->sync([6, 33]);
+});
 
 
 

@@ -57,7 +57,7 @@ class CastController extends Controller
             ],
             [
                 'billing_position' => $data['billing_position'],
-                'character_name' => $data['character_name']
+                'known_for' => $data['character_name']
             ]
         );
 
